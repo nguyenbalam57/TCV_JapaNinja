@@ -10,7 +10,7 @@ namespace TCV_JapaNinja.Class
     {
 
         /// <summary>
-        /// ád
+        /// Color tùy theo mức độ
         /// </summary>
         public enum enColors
         {
