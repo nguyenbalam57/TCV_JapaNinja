@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4E869C3B-CF6E-4204-8445-D8EB39D28989}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TCV_JapaNinja</RootNamespace>
+    <AssemblyName>TCV_JapaNinja</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.6.6.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MaterialSkin.2.2.3.1\lib\net461\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\Admin_Management\Accounts.cs" />
+    <Compile Include="Class\Colors.cs" />
+    <Compile Include="Class\Admin_Management\ConnectedData.cs" />
+    <Compile Include="Class\Admin_Management\Connecteds.cs" />
+    <Compile Include="Class\Languages.cs" />
+    <Compile Include="Class\UserDefineFunction.cs" />
+    <Compile Include="Class\UserToolBoxs.cs" />
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.Designer.cs">
+      <DependentUpon>FormGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormPosition.Designer.cs">
+      <DependentUpon>FormPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormRole.Designer.cs">
+      <DependentUpon>FormRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\admin_Management.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\admin_Management.Designer.cs">
+      <DependentUpon>admin_Management.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormUser.Designer.cs">
+      <DependentUpon>FormUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormCurriculum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormCurriculum.Designer.cs">
+      <DependentUpon>FormCurriculum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormInputDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormInputDatabase.Designer.cs">
+      <DependentUpon>FormInputDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormLevel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormLevel.Designer.cs">
+      <DependentUpon>FormLevel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormTypeVocabulary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin_ManagementForms\DatabaseForms\FormTypeVocabulary.Designer.cs">
+      <DependentUpon>FormTypeVocabulary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Advanced\FormAdvanced.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Advanced\FormAdvanced.Designer.cs">
+      <DependentUpon>FormAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CommonSection\FormTrial_Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonSection\FormTrial_Test.Designer.cs">
+      <DependentUpon>FormTrial_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Login\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Login\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\Alphabet\FormAlphabet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\Alphabet\FormAlphabet.Designer.cs">
+      <DependentUpon>FormAlphabet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\Alphabet\FormTrialAlphabet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\Alphabet\FormTrialAlphabet.Designer.cs">
+      <DependentUpon>FormTrialAlphabet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormCommonSection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormCommonSection.Designer.cs">
+      <DependentUpon>FormCommonSection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormFlashCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormFlashCard.Designer.cs">
+      <DependentUpon>FormFlashCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormGapFilling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormGapFilling.Designer.cs">
+      <DependentUpon>FormGapFilling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormLearning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormLearning.Designer.cs">
+      <DependentUpon>FormLearning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormMatching.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormMatching.Designer.cs">
+      <DependentUpon>FormMatching.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormMini_Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormMini_Test.Designer.cs">
+      <DependentUpon>FormMini_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormWordSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\CommonSection\FormWordSelection.Designer.cs">
+      <DependentUpon>FormWordSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\FormStudy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\FormStudy.Designer.cs">
+      <DependentUpon>FormStudy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\Kanji\FormKanji.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\Kanji\FormKanji.Designer.cs">
+      <DependentUpon>FormKanji.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Study\Technical\FormTechnical.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Study\Technical\FormTechnical.Designer.cs">
+      <DependentUpon>FormTechnical.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Test\FormTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Test\FormTest.Designer.cs">
+      <DependentUpon>FormTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Trial\FormTrial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Trial\FormTrial.Designer.cs">
+      <DependentUpon>FormTrial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account\CustomRolePer.cs" />
+    <Compile Include="Models\Account\CustomUser.cs" />
+    <Compile Include="TCV_JapaNinja_f.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TCV_JapaNinja_f.Designer.cs">
+      <DependentUpon>TCV_JapaNinja_f.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.resx">
+      <DependentUpon>FormGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormPosition.resx">
+      <DependentUpon>FormPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormRole.resx">
+      <DependentUpon>FormRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\admin_Management.resx">
+      <DependentUpon>admin_Management.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormUser.resx">
+      <DependentUpon>FormUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\DatabaseForms\FormCurriculum.resx">
+      <DependentUpon>FormCurriculum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\DatabaseForms\FormInputDatabase.resx">
+      <DependentUpon>FormInputDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\DatabaseForms\FormLevel.resx">
+      <DependentUpon>FormLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin_ManagementForms\DatabaseForms\FormTypeVocabulary.resx">
+      <DependentUpon>FormTypeVocabulary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Advanced\FormAdvanced.resx">
+      <DependentUpon>FormAdvanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CommonSection\FormTrial_Test.resx">
+      <DependentUpon>FormTrial_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Login\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\Alphabet\FormAlphabet.resx">
+      <DependentUpon>FormAlphabet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\Alphabet\FormTrialAlphabet.resx">
+      <DependentUpon>FormTrialAlphabet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormCommonSection.resx">
+      <DependentUpon>FormCommonSection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormFlashCard.resx">
+      <DependentUpon>FormFlashCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormGapFilling.resx">
+      <DependentUpon>FormGapFilling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormLearning.resx">
+      <DependentUpon>FormLearning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormMatching.resx">
+      <DependentUpon>FormMatching.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormMini_Test.resx">
+      <DependentUpon>FormMini_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\CommonSection\FormWordSelection.resx">
+      <DependentUpon>FormWordSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\FormStudy.resx">
+      <DependentUpon>FormStudy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\Kanji\FormKanji.resx">
+      <DependentUpon>FormKanji.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Study\Technical\FormTechnical.resx">
+      <DependentUpon>FormTechnical.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Test\FormTest.resx">
+      <DependentUpon>FormTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Trial\FormTrial.resx">
+      <DependentUpon>FormTrial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCV_JapaNinja_f.resx">
+      <DependentUpon>TCV_JapaNinja_f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Fonts\Noto_Sans_JP\NotoSansJP-VariableFont_wght.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Black.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Bold.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-ExtraBold.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-ExtraLight.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Light.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Medium.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Regular.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-SemiBold.ttf" />
+    <None Include="Fonts\Noto_Sans_JP\static\NotoSansJP-Thin.ttf" />
+    <None Include="Fonts\Roboto\Roboto-Italic-VariableFont_wdth,wght.ttf" />
+    <None Include="Fonts\Roboto\Roboto-VariableFont_wdth,wght.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Black.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-BlackItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Bold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-BoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-ExtraBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-ExtraBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-ExtraLight.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-ExtraLightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Italic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Light.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-LightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Medium.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-MediumItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Regular.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-SemiBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-SemiBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-Thin.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto-ThinItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Black.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-BlackItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Bold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-BoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-ExtraBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-ExtraBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-ExtraLight.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-ExtraLightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Italic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Light.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-LightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Medium.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-MediumItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Regular.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-SemiBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-SemiBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-Thin.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_Condensed-ThinItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Black.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-BlackItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Bold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-BoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-ExtraBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-ExtraBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-ExtraLight.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-ExtraLightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Italic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Light.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-LightItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Medium.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-MediumItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Regular.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-SemiBold.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-SemiBoldItalic.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-Thin.ttf" />
+    <None Include="Fonts\Roboto\static\Roboto_SemiCondensed-ThinItalic.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\Evaluate\" />
+    <Folder Include="Forms\Study\Grammar\" />
+    <Folder Include="Forms\Study\Vocabulary\" />
+    <Folder Include="src\Admin_Management\" />
+    <Folder Include="src\Learnings\" />
+    <Folder Include="src\Login\" />
+    <Folder Include="src\Managements\" />
+    <Folder Include="src\Periodicallys\" />
+    <Folder Include="src\Practices\" />
+    <Folder Include="src\Statistics\" />
+    <Folder Include="src\TestSamples\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="databases\JapaNinja_Database.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="databases\JapaNinja_Database_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>JapaNinja_Database.mdf</DependentUpon>
+    </Content>
+    <Content Include="Fonts\Noto_Sans_JP\OFL.txt" />
+    <Content Include="Fonts\Noto_Sans_JP\README.txt" />
+    <Content Include="Fonts\Roboto\OFL.txt" />
+    <Content Include="Fonts\Roboto\README.txt" />
+    <Content Include="Images\ButtonImages\bin.png" />
+    <Content Include="Images\ButtonImages\compose.png" />
+    <Content Include="Images\ButtonImages\eyes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
