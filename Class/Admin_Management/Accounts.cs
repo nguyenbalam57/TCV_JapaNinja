@@ -15,8 +15,15 @@ namespace TCV_JapaNinja.Class
 {
     internal class Accounts
     {
+        /* ID accounts dang nhap */
+        public static CustomUser UserLogin = new CustomUser();
+
+        #region ROLES_SETTING
         /// <summary>
-        /// 
+        /// Mục cần hiển thị
+        /// ID    để sử dụng cho toàn bộ code
+        /// Name  hiển thị
+        /// Description Chú thích
         /// </summary>
         public enum enRoleCol
         {
@@ -25,7 +32,9 @@ namespace TCV_JapaNinja.Class
             RoleCol_Des,
             RoleCol_
         }
-
+        /// <summary>
+        /// Số ID truy cập
+        /// </summary>
         public enum enRoleRow
         {
             RoleRow_Admin,
@@ -71,12 +80,8 @@ namespace TCV_JapaNinja.Class
             {"USERROLE",        "User Role",            "Quản lý phân quyền đối với người dùng"},       //RoleRow_UserRole
             {"USER",            "User",                 "Tên người dùng"},                              //RoleRow_User
             {"VOC",             "Vocabulary",           "Từ vựng tiếng Nhật"},                           //RoleRow_Voc
-            {"INPUTDATA",       "Input Data",           "Thêm dữ liệu data vào Cơ sở dữ liệu"}                           //RoleRow_InputData
+            {"INPUTDATA",       "Input Data",           "Thêm dữ liệu data vào Cơ sở dữ liệu"}          //RoleRow_InputData
         };
-
-        /* ID accounts dang nhap */
-        public static CustomUser UserLogin = new CustomUser();
-
 
         // Quản lý về người dùng, account
         public static string[] manAccount = new string[] 
@@ -102,8 +107,11 @@ namespace TCV_JapaNinja.Class
             codeRoles[(int)enRoleRow.RoleRow_Level, (int)enRoleCol.RoleCol_Id],
             codeRoles[(int)enRoleRow.RoleRow_Technical, (int)enRoleCol.RoleCol_Id],
             codeRoles[(int)enRoleRow.RoleRow_TypeVoc, (int)enRoleCol.RoleCol_Id],
-            codeRoles[(int)enRoleRow.RoleRow_Voc, (int)enRoleCol.RoleCol_Id]
+            codeRoles[(int)enRoleRow.RoleRow_Voc, (int)enRoleCol.RoleCol_Id],
+            codeRoles[(int)enRoleRow.RoleRow_InputData, (int)enRoleCol.RoleCol_Id]
         };
+
+        #endregion
 
         public static void clearAccountLogin()
         {
