@@ -68,11 +68,15 @@ namespace TCV_JapaNinja.Class
             {"USERROLE",        "User Role",            "Quản lý phân quyền đối với người dùng"},       //RoleRow_UserRole
             {"USER",            "User",                 "Tên người dùng"},                              //RoleRow_User
             {"VOC",             "Vocabulary",           "Từ vựng tiếng Nhật"},                           //RoleRow_Voc
-            {"INPUTDATA",       "Input Data",           "Thêm dữ liệu data vào Cơ sở dữ liệu"}                           //RoleRow_InputData
+            {"INPUTDATA",       "Input Data",           "Thêm dữ liệu data vào Cơ sở dữ liệu"}                           //RoleRow_InputData1
         };
 
         /* ID accounts dang nhap */
         public static CustomUser UserLogin = new CustomUser();
+
+        public static string abc = string.Empty;
+        public static string abc1212 = string.Empty; 
+
 
         // Quản lý về người dùng, account
         public static string[] manAccount = new string[] 

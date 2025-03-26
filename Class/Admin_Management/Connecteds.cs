@@ -21,6 +21,7 @@ namespace TCV_JapaNinja.Class
     /// </summary>
     public class Connecteds
     {
+        string avc = "â";
         /// <summary>
         /// hàm khởi đầu
         /// </summary>
