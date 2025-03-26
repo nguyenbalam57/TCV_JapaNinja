@@ -8,6 +8,10 @@ namespace TCV_JapaNinja.Class
 {
     internal class Colors
     {
+
+        /// <summary>
+        /// ád
+        /// </summary>
         public enum enColors
         {
             Color_Background = 0,
