@@ -26,6 +26,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
          *  - Thêm chức năng nhớ từ vừa học, thêm nút trái tim để hiển thị. Load từ data về từ nào đã học thì hiển thị trái tim đỏ, tô trái tim
          * Thiết kế giao diện UX UI cho dễ sử dụng
          * 
+         * 
          */
 
         public FormLearning()
