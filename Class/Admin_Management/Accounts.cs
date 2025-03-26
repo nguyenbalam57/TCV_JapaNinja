@@ -15,6 +15,9 @@ namespace TCV_JapaNinja.Class
 {
     internal class Accounts
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public enum enRoleCol
         {
             RoleCol_Id,

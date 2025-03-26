@@ -22,7 +22,7 @@ namespace TCV_JapaNinja.Class
     public class Connecteds
     {
         /// <summary>
-        /// hàm khởi đầu
+        /// hàm khởi đầu itit
         /// </summary>
         public void initializeConnected()
         {
