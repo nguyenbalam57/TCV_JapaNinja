@@ -118,11 +118,6 @@ namespace TCV_JapaNinja.Class
         // tao dataset de add table vao dataset
         public static DataSet dataSet;
 
-        public static SqlDataAdapter dataAdapterVoc;
-        public static SqlDataAdapter dataAdapterKanji;
-        public static SqlDataAdapter dataAdapterTechnical;
-        public static SqlDataAdapter dataAdapterGrammar;
-
         /// <summary>
         /// load All Data
         /// </summary>
