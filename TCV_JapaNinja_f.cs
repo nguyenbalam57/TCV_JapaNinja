@@ -54,7 +54,7 @@ namespace TCV_JapaNinja
             // Button Admin Management
             string[] man = Accounts.manAccount.Concat(Accounts.manData).ToArray();
             admin_Management_btn.Visible = false;
-            if(Accounts.UserLogin.HasRermission(Permission.Read) || Accounts.UserLogin.HasRermission(man))
+            if(Accounts.UserLogin.HasRermission(man))
             {
                 admin_Management_btn.Visible = true;
             }    
@@ -362,7 +362,7 @@ namespace TCV_JapaNinja
             if(formLogin != null)
             {
                 // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
-                Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
+                Accounts.clearAccountLogin();
                 formLogin.Close();
             }
         }

@@ -115,6 +115,14 @@ namespace TCV_JapaNinja.Class
 
         public static void clearAccountLogin()
         {
+            // Trước khi clear lịch sử đăng nhập
+            // Clear trạng thái đăng nhập
+            if(UserLogin.UserId >= 0)
+            {
+                // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
+                updateIPAdress(UserLogin.UserId, string.Empty);
+            }
+            // Clear user đăng nhập
             UserLogin = new CustomUser();
         }
 

@@ -269,10 +269,19 @@ namespace TCV_JapaNinja.Forms.Login
                         foreach (string code in roleCodes)
                         {
                             bool hasChange = false;
+
                             // Lấy giá trị cũ, nếu tồn tại
                             CustomRolePer roleOld = userRoles.FirstOrDefault(r => r.RoleId == code);
+                            
                             // Giá trị mới được thực hiện
                             customRole = new CustomRolePer(code, Accounts.GetNameCodeRoleOfId(code));
+
+                            // Kiểm tra tồn tại của ADMIN, nếu ADMIN chưa tồn tại thì add ADMIN vào.
+                            // ADMIN không cần phải CRUD
+                            if (roleOld == null) 
+                            {
+                                hasChange = true;
+                            }
 
                             // Đọc trong table Role những trường CreatedRole, ReadRole, UpdateRole, DeleteRole thì dùng để Add Permission
                             if ((roleOld != null && roleOld.HasPermission(Permission.Create)) || Convert.ToBoolean(roleRow[ConnectedData.roleCol[(int)ConnectedData.enRoleCol.RoleCol_Created]]))

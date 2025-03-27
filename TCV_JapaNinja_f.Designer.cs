@@ -50,6 +50,7 @@
             this.nameAccount_lb = new System.Windows.Forms.Label();
             this.bottom_pn = new System.Windows.Forms.Panel();
             this.childForm_pn = new System.Windows.Forms.Panel();
+            this.sataEllipseControl1 = new SATAUiFramework.Controls.SATAEllipseControl();
             this.left_Menu_pn.SuspendLayout();
             this.study_pn.SuspendLayout();
             this.logo_pn.SuspendLayout();
@@ -412,6 +413,11 @@
             this.childForm_pn.Size = new System.Drawing.Size(726, 604);
             this.childForm_pn.TabIndex = 1;
             // 
+            // sataEllipseControl1
+            // 
+            this.sataEllipseControl1.CornerRadius = 35;
+            this.sataEllipseControl1.TargetControl = this;
+            // 
             // TCV_JapaNinja_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -422,6 +428,7 @@
             this.Controls.Add(this.top_Desription_pn);
             this.Controls.Add(this.left_Menu_pn);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "TCV_JapaNinja_form";
@@ -462,6 +469,7 @@
         private FontAwesome.Sharp.IconButton study_Vocabulary_btn;
         private FontAwesome.Sharp.IconButton study_Grammar_btn;
         private FontAwesome.Sharp.IconButton admin_Management_btn;
+        private SATAUiFramework.Controls.SATAEllipseControl sataEllipseControl1;
     }
 }
 
