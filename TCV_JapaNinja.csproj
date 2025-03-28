@@ -249,6 +249,7 @@
     </Compile>
     <Compile Include="Models\Account\CustomRolePer.cs" />
     <Compile Include="Models\Account\CustomUser.cs" />
+    <Compile Include="src\CommonSections\Learnings.cs" />
     <Compile Include="TCV_JapaNinja_f.cs">
       <SubType>Form</SubType>
     </Compile>

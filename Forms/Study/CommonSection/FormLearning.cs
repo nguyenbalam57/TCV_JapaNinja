@@ -40,8 +40,10 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         {
             leaningData = new DataTable();
             leaningData = dataTable;
-
+            viewLeaning_dgv.DataSource = leaningData;
         }
+
+
 
     }
 }

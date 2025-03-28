@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TCV_JapaNinja.Class;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
@@ -17,13 +18,28 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         public FormCommonSection()
         {
             InitializeComponent();
+            defaultDisplay();
+        }
+
+        public void defaultDisplay()
+        {
+            // Nếu được cấp quyền sẽ được học từ kanji
+            if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Kanji, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
+            {
+                var frmLearning = (FormLearning)Application.OpenForms["FormLearning"];
+                if (frmLearning == null) { frmLearning = new FormLearning(); }
+                frmLearning.getDataTableLeaningData(kanjiTable);
+                openChildForm(frmLearning);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public void DisplayKanjiData(DataTable kanjiData)
         {
             kanjiTable = kanjiData;
-
-            dataView_dgv.DataSource = kanjiTable;
         }
 
         private void learning_btn_Click(object sender, EventArgs e)
@@ -66,6 +82,21 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         private void text_Focus_lb_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Mở một form con trong panel hiện tại.
+        /// </summary>
+        /// <param name="childForm">Form con cần mở</param>
+        private void openChildForm(Form childForm)
+        {
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            chillFormSection_pn.Controls.Add(childForm);
+            chillFormSection_pn.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

@@ -31,7 +31,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.thongTinVoca_pn = new System.Windows.Forms.Panel();
             this.listVoca_pn = new System.Windows.Forms.Panel();
-            this.viewKanji_dgv = new System.Windows.Forms.FlowLayoutPanel();
             this.viewLeaning_dgv = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1.SuspendLayout();
             this.listVoca_pn.SuspendLayout();
@@ -72,7 +71,6 @@
             this.listVoca_pn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listVoca_pn.Controls.Add(this.viewKanji_dgv);
             this.listVoca_pn.Controls.Add(this.viewLeaning_dgv);
             this.listVoca_pn.Location = new System.Drawing.Point(0, 0);
             this.listVoca_pn.Margin = new System.Windows.Forms.Padding(0);
@@ -80,19 +78,15 @@
             this.listVoca_pn.Size = new System.Drawing.Size(1065, 276);
             this.listVoca_pn.TabIndex = 0;
             // 
-            // viewKanji_dgv
-            // 
-            this.viewKanji_dgv.Location = new System.Drawing.Point(520, 3);
-            this.viewKanji_dgv.Name = "viewKanji_dgv";
-            this.viewKanji_dgv.Size = new System.Drawing.Size(542, 270);
-            this.viewKanji_dgv.TabIndex = 1;
-            // 
             // viewLeaning_dgv
             // 
+            this.viewLeaning_dgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.viewLeaning_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.viewLeaning_dgv.Location = new System.Drawing.Point(3, 3);
             this.viewLeaning_dgv.Name = "viewLeaning_dgv";
-            this.viewLeaning_dgv.Size = new System.Drawing.Size(511, 270);
+            this.viewLeaning_dgv.Size = new System.Drawing.Size(1062, 270);
             this.viewLeaning_dgv.TabIndex = 0;
             // 
             // FormLearning
@@ -119,6 +113,5 @@
         private System.Windows.Forms.Panel thongTinVoca_pn;
         private System.Windows.Forms.Panel listVoca_pn;
         private System.Windows.Forms.DataGridView viewLeaning_dgv;
-        private System.Windows.Forms.FlowLayoutPanel viewKanji_dgv;
     }
 }

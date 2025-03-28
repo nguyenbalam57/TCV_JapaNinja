@@ -35,11 +35,8 @@
             this.gap_Filling_btn = new FontAwesome.Sharp.IconButton();
             this.word_Selection_btn = new FontAwesome.Sharp.IconButton();
             this.mini_Test_btn = new FontAwesome.Sharp.IconButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataView_dgv = new System.Windows.Forms.DataGridView();
+            this.chillFormSection_pn = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataView_dgv)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -138,42 +135,30 @@
             this.mini_Test_btn.UseVisualStyleBackColor = true;
             this.mini_Test_btn.Click += new System.EventHandler(this.mini_Test_btn_Click);
             // 
-            // panel1
+            // chillFormSection_pn
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chillFormSection_pn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.dataView_dgv);
-            this.panel1.Location = new System.Drawing.Point(3, 54);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1061, 498);
-            this.panel1.TabIndex = 1;
-            // 
-            // dataView_dgv
-            // 
-            this.dataView_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataView_dgv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataView_dgv.Location = new System.Drawing.Point(0, 0);
-            this.dataView_dgv.Name = "dataView_dgv";
-            this.dataView_dgv.Size = new System.Drawing.Size(1059, 496);
-            this.dataView_dgv.TabIndex = 1;
+            this.chillFormSection_pn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.chillFormSection_pn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chillFormSection_pn.Location = new System.Drawing.Point(3, 54);
+            this.chillFormSection_pn.Name = "chillFormSection_pn";
+            this.chillFormSection_pn.Size = new System.Drawing.Size(1061, 498);
+            this.chillFormSection_pn.TabIndex = 1;
             // 
             // FormCommonSection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.chillFormSection_pn);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCommonSection";
             this.Text = "FormCommonSection";
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataView_dgv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -181,13 +166,12 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel chillFormSection_pn;
         private FontAwesome.Sharp.IconButton learning_btn;
         private FontAwesome.Sharp.IconButton flashCard_btn;
         private FontAwesome.Sharp.IconButton matching_btn;
         private FontAwesome.Sharp.IconButton gap_Filling_btn;
         private FontAwesome.Sharp.IconButton word_Selection_btn;
         private FontAwesome.Sharp.IconButton mini_Test_btn;
-        private System.Windows.Forms.DataGridView dataView_dgv;
     }
 }
