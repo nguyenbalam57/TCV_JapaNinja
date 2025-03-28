@@ -29,9 +29,18 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
          * 
          */
 
+        DataTable leaningData;
+
         public FormLearning()
         {
             InitializeComponent();
+        }
+
+        public void getDataTableLeaningData(DataTable dataTable)
+        {
+            leaningData = new DataTable();
+            leaningData = dataTable;
+
         }
 
     }
