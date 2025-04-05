@@ -1,17 +1,29 @@
-﻿using System;
+﻿using FrameworkTest;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using Button = System.Windows.Forms.Button;
+using Panel = System.Windows.Forms.Panel;
 
 namespace TCV_JapaNinja.Class
 {
     internal class UserDefineFunction
     {
-        
+        /// <summary>
+        /// những button trong form
+        /// </summary>
+        enum typeButton
+        {
+            SAT,
+            FORM,
+            TypeButton
+        }
 
         /// <summary>
         /// ham kiem tra number
@@ -72,7 +84,13 @@ namespace TCV_JapaNinja.Class
 
             return rsult;
         }
-
+        /// <summary>
+        /// Hàm khởi tạo button cho datagridview
+        /// </summary>
+        /// <param name="dataGridView"></param>
+        /// <param name="name"></param>
+        /// <param name="text"></param>
+        /// <param name="pathImage"></param>
         public static void InitDataGridViewButton(DataGridView dataGridView, string name, string text, string pathImage)
         {
             if (dataGridView == null) return;
@@ -81,7 +99,7 @@ namespace TCV_JapaNinja.Class
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                if(!row.IsNewRow)
+                if (!row.IsNewRow)
                 {
                     // Kiểm tra xem cột "Edit" có tồn tại không
                     if (dataGridView.Columns[name] != null)
@@ -98,9 +116,62 @@ namespace TCV_JapaNinja.Class
                         row.Cells[name].Value = path;
                     }
 
-                }    
-            }    
+                }
+            }
         }
+        /// <summary>
+        /// Mở form con trong panel
+        /// </summary>
+        /// <param name="childForm"></param>
+        /// <param name="chillPanel"></param>
+        /// <param name="activeForm"></param>
+        public static Form openChildForm(Form childForm, Panel chillPanel, Form activeForm)
+        {
+            Form rs = activeForm;
+
+            if (activeForm != null)
+            {
+                if (activeForm == childForm) return rs;
+                activeForm.Close();
+            }
+            rs = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            chillPanel.Controls.Add(childForm);
+            chillPanel.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+
+            return rs;
+        }
+
+        /// <summary>
+        /// Hàm này dùng để kiểm tra xem button nào đang được focus
+        /// Và đổi màu cho button đó
+        /// </summary>
+        /// <param SATAButton="sATAButton">sử dụng tên để phân biệt được button sata hay button Form</param>
+        /// <param SATAButton="activeButton">Dạng button</param>
+        public static SATAButton ActiveSATAButtons(SATAButton sATAButton, SATAButton activeButton)
+        {
+            SATAButton rs = activeButton;
+
+            if (sATAButton == null) return rs;
+            if (sATAButton == activeButton) return rs;
+            rs = sATAButton;
+            sATAButton.NormalBackground = System.Drawing.Color.FromArgb(58, 112, 182);
+
+            // Nếu activeButton không null, thì đổi lại màu của nó về màu mặc định
+            if (activeButton != null)
+            {
+                activeButton.NormalBackground = System.Drawing.Color.DodgerBlue;
+            }
+            
+            return rs;
+
+        }
+
+
 
     }
 }

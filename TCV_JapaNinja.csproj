@@ -90,6 +90,7 @@
     <Compile Include="Class\Admin_Management\Connecteds.cs" />
     <Compile Include="Class\Languages.cs" />
     <Compile Include="Class\UserDefineFunction.cs" />
+    <Compile Include="Class\UserDefineFunctionBase.cs" />
     <Compile Include="Class\UserToolBoxs.cs" />
     <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.cs">
       <SubType>Form</SubType>

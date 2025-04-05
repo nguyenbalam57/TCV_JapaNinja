@@ -30,7 +30,6 @@ namespace TCV_JapaNinja
             InitializeComponent();
             InitializeLoadForm();
             ConnectedData.LoadDataAllSQL();
-            reset();
             setTextColorAll();
             setNameLabelAccount();
         }
@@ -45,10 +44,7 @@ namespace TCV_JapaNinja
         {
             FrmJPObj = this;
         }
-        private void reset()
-        {
-            study_pn.Visible = false;
-        }
+
         private void InitializeLoadForm()
         {
             // Button Admin Management
@@ -71,13 +67,6 @@ namespace TCV_JapaNinja
             /*set name label*/
             /* learning */
             study_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Study, (int)Languages.LanguageIndex];
-            /* learning */
-            study_Alphabet_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Alphabet, (int)Languages.LanguageIndex];
-            /* learning */
-            study_Technical_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Technical, (int)Languages.LanguageIndex];
-            study_Kanji_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Kanji, (int)Languages.LanguageIndex];
-            study_Vocabulary_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Vocabulary, (int)Languages.LanguageIndex];
-            study_Grammar_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Grammar, (int)Languages.LanguageIndex];
 
             /* trial */
             trial_btn.Text = Languages.lableName[(int)Languages.enLableName.LabelName_Trial, (int)Languages.LanguageIndex];
@@ -120,12 +109,21 @@ namespace TCV_JapaNinja
             }
         }
 
-        
 
+        /// <summary>
+        /// active icon button menu level 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         #region MENUBUTTONLEVEL1
         private void study_btn_Click(object sender, EventArgs e)
         {
             activeIconButtonMenu(sender, e);
+            var frmStudy = (Forms.Study.FormStudy)Application.OpenForms["FormStudy"];
+            frmStudy?.Focus();
+            if (frmStudy == null) { frmStudy = new Forms.Study.FormStudy(); }
+            /* hiển thị */
+            openChildForm(frmStudy);
         }
 
         private void trial_btn_Click(object sender, EventArgs e)
@@ -174,6 +172,11 @@ namespace TCV_JapaNinja
 
         }
 
+        /// <summary>
+        /// active icon button menu level 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void activeIconButtonMenu(object sender, EventArgs e)
         {
             IconButton btn = (IconButton)sender;
@@ -182,22 +185,15 @@ namespace TCV_JapaNinja
             {
                 diactiveIconButtonMenu();
                 activeIconButton = btn;
-                activePanelMenu = pnActiver(sender);
                 titleNameLevel1 = activeIconButton.Text;
-                activeIconButton.ForeColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonTextActive, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButton.IconColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonTextActive, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButton.BackColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonActive, (int)Class.Colors.ModeColorsIndex]);
+                activeIconButton.ForeColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonTextActive, (int)Colors.ModeColorsIndex]);
+                activeIconButton.IconColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonTextActive, (int)Colors.ModeColorsIndex]);
+                activeIconButton.BackColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonActive, (int)Colors.ModeColorsIndex]);
                 activeIconButton.TextImageRelation = TextImageRelation.TextBeforeImage;
 
-                if (activePanelMenu != null) activePanelMenu.Visible = true;
-                else
-                {
-                    diactiveIconButtonLevel2();
-                    home_Menu_btn.IconChar = activeIconButton.IconChar;
-                    title_Hearder_lb.Text = titleNameLevel1;
-                }
             }
         }
+
         /// <summary>
         /// clear active icon button menu
         /// </summary>
@@ -211,110 +207,13 @@ namespace TCV_JapaNinja
             if (activeIconButton != null)
             {
                 activeIconButton.TextImageRelation = TextImageRelation.ImageBeforeText;
-                activeIconButton.ForeColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonText, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButton.IconColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonText, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButton.BackColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButton, (int)Class.Colors.ModeColorsIndex]);
+                activeIconButton.ForeColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonText, (int)Colors.ModeColorsIndex]);
+                activeIconButton.IconColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonText, (int)Colors.ModeColorsIndex]);
+                activeIconButton.BackColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButton, (int)Colors.ModeColorsIndex]);
             }
         }
-        /// <summary>
-        /// read panel active
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        private Panel pnActiver(object sender)
-        {
-            Panel rspn = null;
-            IconButton btn = (IconButton)sender;
-            switch (btn.Name)
-            {
-                case "study_btn":
-                    rspn = study_pn;
-                    break;
-                default:
-                    break;
-            }
-            return rspn;
-        }
+
         #endregion
-        
-
-        #region MENUBUTTONLEVEL2
-
-        private void study_Alphabet_btn_Click(object sender, EventArgs e)
-        {
-            ActiveIconButtonLevel2(sender, e);
-            var frmAlphabet = (Forms.Study.Alphabet.FormAlphabet)Application.OpenForms["FormAlphabet"];
-            frmAlphabet?.Focus();
-            if (frmAlphabet == null) { frmAlphabet = new Forms.Study.Alphabet.FormAlphabet(); }
-            /*hien thi*/
-            openChildForm(frmAlphabet);
-        }
-
-        private void study_Technical_btn_Click(object sender, EventArgs e)
-        {
-            ActiveIconButtonLevel2(sender, e);
-            var frmTechnical = (Forms.Study.Technical.FormTechnical)Application.OpenForms["FormTechnical"];
-            frmTechnical?.Focus();
-            if (frmTechnical == null) { frmTechnical = new Forms.Study.Technical.FormTechnical(); }
-            /*hien thi*/
-            openChildForm(frmTechnical);
-        }
-
-        private void study_Kanji_btn_Click(object sender, EventArgs e)
-        {
-            ActiveIconButtonLevel2(sender, e);
-            var frmKanji = (Forms.Study.Kanji.FormKanji)Application.OpenForms["FormKanji"];
-            frmKanji?.Focus();
-            if (frmKanji == null) { frmKanji = new Forms.Study.Kanji.FormKanji(); }
-            /*hien thi*/
-            openChildForm(frmKanji);
-        }
-        private void study_Vocabulary_btn_Click(object sender, EventArgs e)
-        {
-            ActiveIconButtonLevel2(sender, e);
-            var frmKanji = (Forms.Study.Kanji.FormKanji)Application.OpenForms["FormKanji"];
-            frmKanji?.Focus();
-            if (frmKanji == null) { frmKanji = new Forms.Study.Kanji.FormKanji(); }
-            /*hien thi*/
-            openChildForm(frmKanji);
-        }
-
-        private void study_Grammar_btn_Click(object sender, EventArgs e)
-        {
-            ActiveIconButtonLevel2(sender, e);
-            var frmKanji = (Forms.Study.Kanji.FormKanji)Application.OpenForms["FormKanji"];
-            frmKanji?.Focus();
-            if (frmKanji == null) { frmKanji = new Forms.Study.Kanji.FormKanji(); }
-            /*hien thi*/
-            openChildForm(frmKanji);
-        }
-
-
-        private void ActiveIconButtonLevel2(object sender, EventArgs e)
-        {
-            IconButton btn = (IconButton)sender;
-            if (btn != null)
-            {
-                diactiveIconButtonLevel2();
-                activeIconButtonLevel2 = btn;
-                home_Menu_btn.IconChar = activeIconButton.IconChar;
-                title_Hearder_lb.Text = titleNameLevel1 + " >> " + activeIconButtonLevel2.Text;
-                activeIconButtonLevel2.TextImageRelation = TextImageRelation.TextBeforeImage;
-                activeIconButtonLevel2.ForeColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonTextActive, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButtonLevel2.IconColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonTextActive, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButtonLevel2.BackColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonLevel2Active, (int)Class.Colors.ModeColorsIndex]);
-            }
-        }
-        private void diactiveIconButtonLevel2()
-        {
-            if (activeIconButtonLevel2 != null)
-            {
-                activeIconButtonLevel2.TextImageRelation = TextImageRelation.ImageBeforeText;
-                activeIconButtonLevel2.ForeColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonText, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButtonLevel2.IconColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonText, (int)Class.Colors.ModeColorsIndex]);
-                activeIconButtonLevel2.BackColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_IconButtonLevel2, (int)Class.Colors.ModeColorsIndex]);
-            }
-        }
 
         /// <summary>
         /// screen 
@@ -336,8 +235,6 @@ namespace TCV_JapaNinja
             childForm.BringToFront();
             childForm.Show();
         }
-
-        #endregion
 
         private void logout_btn_Click(object sender, EventArgs e)
         {

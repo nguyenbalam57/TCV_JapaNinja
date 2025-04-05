@@ -41,6 +41,7 @@
             this.exit_btn = new FontAwesome.Sharp.IconButton();
             this.minus_btn = new FontAwesome.Sharp.IconButton();
             this.loadingProgressBar = new System.Windows.Forms.ProgressBar();
+            this.sataEllipseControl1 = new SATAUiFramework.Controls.SATAEllipseControl();
             ((System.ComponentModel.ISupportInitialize)(this.logo_ptb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_ptb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lock_ptb)).BeginInit();
@@ -57,7 +58,7 @@
             this.logo_ptb.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.logo_ptb.IconSize = 384;
             this.logo_ptb.Location = new System.Drawing.Point(0, 1);
-            this.logo_ptb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logo_ptb.Margin = new System.Windows.Forms.Padding(4);
             this.logo_ptb.Name = "logo_ptb";
             this.logo_ptb.Size = new System.Drawing.Size(384, 414);
             this.logo_ptb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -102,7 +103,7 @@
             this.panel1.Controls.Add(this.userName_tb);
             this.panel1.Controls.Add(this.user_ptb);
             this.panel1.Location = new System.Drawing.Point(383, 134);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(645, 66);
             this.panel1.TabIndex = 6;
@@ -112,7 +113,7 @@
             this.userName_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.userName_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.userName_tb.Location = new System.Drawing.Point(92, 15);
-            this.userName_tb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.userName_tb.Margin = new System.Windows.Forms.Padding(4);
             this.userName_tb.Name = "userName_tb";
             this.userName_tb.Size = new System.Drawing.Size(539, 31);
             this.userName_tb.TabIndex = 2;
@@ -124,7 +125,7 @@
             this.panel2.Controls.Add(this.eye_ptb);
             this.panel2.Controls.Add(this.lock_ptb);
             this.panel2.Location = new System.Drawing.Point(383, 208);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(645, 66);
             this.panel2.TabIndex = 7;
@@ -134,7 +135,7 @@
             this.password_tb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.password_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.password_tb.Location = new System.Drawing.Point(92, 15);
-            this.password_tb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.password_tb.Margin = new System.Windows.Forms.Padding(4);
             this.password_tb.Name = "password_tb";
             this.password_tb.PasswordChar = '*';
             this.password_tb.Size = new System.Drawing.Size(476, 31);
@@ -164,7 +165,7 @@
             this.login_btn.IconColor = System.Drawing.Color.Black;
             this.login_btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.login_btn.Location = new System.Drawing.Point(475, 299);
-            this.login_btn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.login_btn.Margin = new System.Windows.Forms.Padding(4);
             this.login_btn.Name = "login_btn";
             this.login_btn.Size = new System.Drawing.Size(476, 52);
             this.login_btn.TabIndex = 9;
@@ -177,7 +178,7 @@
             this.language_cbb.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.language_cbb.FormattingEnabled = true;
             this.language_cbb.Location = new System.Drawing.Point(865, 75);
-            this.language_cbb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.language_cbb.Margin = new System.Windows.Forms.Padding(4);
             this.language_cbb.Name = "language_cbb";
             this.language_cbb.Size = new System.Drawing.Size(160, 28);
             this.language_cbb.TabIndex = 11;
@@ -222,11 +223,16 @@
             // loadingProgressBar
             // 
             this.loadingProgressBar.Location = new System.Drawing.Point(475, 299);
-            this.loadingProgressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loadingProgressBar.Margin = new System.Windows.Forms.Padding(4);
             this.loadingProgressBar.Name = "loadingProgressBar";
             this.loadingProgressBar.Size = new System.Drawing.Size(476, 52);
             this.loadingProgressBar.TabIndex = 14;
             this.loadingProgressBar.Visible = false;
+            // 
+            // sataEllipseControl1
+            // 
+            this.sataEllipseControl1.CornerRadius = 25;
+            this.sataEllipseControl1.TargetControl = this;
             // 
             // FormLogin
             // 
@@ -243,7 +249,7 @@
             this.Controls.Add(this.logo_ptb);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormLogin";
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -275,5 +281,6 @@
         private FontAwesome.Sharp.IconButton exit_btn;
         private FontAwesome.Sharp.IconButton minus_btn;
         private System.Windows.Forms.ProgressBar loadingProgressBar;
+        private SATAUiFramework.Controls.SATAEllipseControl sataEllipseControl1;
     }
 }
