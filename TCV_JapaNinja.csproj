@@ -459,6 +459,7 @@
     <Content Include="Images\ButtonImages\bin.png" />
     <Content Include="Images\ButtonImages\compose.png" />
     <Content Include="Images\ButtonImages\eyes.png" />
+    <Content Include="Images\Logo\TCV.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

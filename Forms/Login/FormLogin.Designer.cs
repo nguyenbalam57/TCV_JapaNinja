@@ -57,7 +57,7 @@
             this.logo_ptb.IconColor = System.Drawing.SystemColors.ControlText;
             this.logo_ptb.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.logo_ptb.IconSize = 384;
-            this.logo_ptb.Location = new System.Drawing.Point(0, 1);
+            this.logo_ptb.Location = new System.Drawing.Point(0, 0);
             this.logo_ptb.Margin = new System.Windows.Forms.Padding(4);
             this.logo_ptb.Name = "logo_ptb";
             this.logo_ptb.Size = new System.Drawing.Size(384, 414);

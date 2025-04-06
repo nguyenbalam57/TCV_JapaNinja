@@ -56,11 +56,11 @@ namespace TCV_JapaNinja.Class
 
         public static string[,] lableName = new string[(int)enLableName.LabelName_, (int)enLanguage.Language_]
         {
-            {"","Study"                    ,"japanH", "Học Tập" },                             //LabelName_Learning = 0,
-            {"","Trial"                    ,"japanT", "Thi Thu" },                             //LabelName_TestEx,
+            {"", "Study"                    ,"japanH", "Học Tập" },                             //LabelName_Learning = 0,
+            {"", "Trial"                    ,"japanT", "Thi Thu" },                             //LabelName_TestEx,
             {"", "Test"                     ,"japanD", "Kiem Tra" },                            //LabelName_Periodically,
             {"", "Advanced"                 ,"japanD", "Mo Rong" },                             //LabelName_Advanced,
-            {"", "Admin Management"         ,"japanV", "Admin Quan Ly" },                       //LabelName_Management,
+            {"", "Management"               ,"japanV", "Admin Quan Ly" },                       //LabelName_Management,
             {"", "Evaluate"                 ,"japanS", "Thong Ke" },                            //LabelName_Statistic,
             {"", "Alphabet"                 ,"japanV", "Chu Cai" },                             //LabelName_Vocabulary,
             {"", "Technical"                ,"japanC", "Chuyen Nganh" },                        //LabelName_VocabularySpecialized,

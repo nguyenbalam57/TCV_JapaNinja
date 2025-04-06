@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,18 +18,36 @@ namespace TCV_JapaNinja
     public partial class TCV_JapaNinja_form : Form
     {
         private IconButton activeIconButton;
-        private IconButton activeIconButtonLevel2;
         private Panel activePanelMenu;
         private Form activeForm;
 
-        private string titleHome = "Home";
-        private string titleNameLevel1 = "Home";
-        private string titleNameLevel2 = string.Empty;
+        /*
+         * Điều chỉnh thanh menu show and hide
+         * Sử dụng timer để điều chỉnh
+         * Bằng cách thay đổi kích thước của panel
+         * Thay đổi panel logo cho phù hợp với kích thước
+         */
+        private Timer timer;
+        private bool isMenuExpanded = true; // Biến để theo dõi trạng thái của menu
+        private bool isRelationImageBeforeText = true; // Biến để theo dõi trạng thái của textImageRelation
+        private const int menuWidth = 200; // Chiều rộng của menu khi mở
+        private const int menuCollapsedWidth = 50; // Chiều rộng của menu khi thu gọn
+        private const int menuAnimationInterval = 10; // Thời gian giữa các bước hoạt ảnh
+        private const int menuAnimationSteps = 25; // Số bước trong hoạt ảnh
+        private const int menuAnimationStepSize = (menuWidth - menuCollapsedWidth) / menuAnimationSteps; // Kích thước mỗi bước hoạt ảnh
+        private const int logoHideHeight = 25; // Chiều dài của logo khi thu gọn
+        private const int logoShowHeight = 100; // Chiều dài của logo khi mở
+        private const int logoAnimationStepSize = (logoShowHeight - logoHideHeight) / menuAnimationSteps; // Kích thước mỗi bước hoạt ảnh của logo
+
 
         public TCV_JapaNinja_form()
         {
             InitializeComponent();
             InitializeLoadForm();
+
+            // Khởi tạo timer
+            initializeTimer();
+
             ConnectedData.LoadDataAllSQL();
             setTextColorAll();
             setNameLabelAccount();
@@ -62,7 +81,7 @@ namespace TCV_JapaNinja
         {
             /* set Color */
             /* menu backcolor */
-            ResetAllControlsBackColor(left_Menu_pn);
+            ResetAllControlsBackColor(bottom_Menu_pn);
 
             /*set name label*/
             /* learning */
@@ -185,11 +204,10 @@ namespace TCV_JapaNinja
             {
                 diactiveIconButtonMenu();
                 activeIconButton = btn;
-                titleNameLevel1 = activeIconButton.Text;
                 activeIconButton.ForeColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonTextActive, (int)Colors.ModeColorsIndex]);
                 activeIconButton.IconColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonTextActive, (int)Colors.ModeColorsIndex]);
                 activeIconButton.BackColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonActive, (int)Colors.ModeColorsIndex]);
-                activeIconButton.TextImageRelation = TextImageRelation.TextBeforeImage;
+                //activeIconButton.TextImageRelation = TextImageRelation.TextBeforeImage;
 
             }
         }
@@ -206,7 +224,7 @@ namespace TCV_JapaNinja
 
             if (activeIconButton != null)
             {
-                activeIconButton.TextImageRelation = TextImageRelation.ImageBeforeText;
+                //activeIconButton.TextImageRelation = TextImageRelation.ImageBeforeText;
                 activeIconButton.ForeColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonText, (int)Colors.ModeColorsIndex]);
                 activeIconButton.IconColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButtonText, (int)Colors.ModeColorsIndex]);
                 activeIconButton.BackColor = ColorTranslator.FromHtml(Colors.Color[(int)Colors.enColors.Color_IconButton, (int)Colors.ModeColorsIndex]);
@@ -274,6 +292,95 @@ namespace TCV_JapaNinja
             Accounts.vdScreenNameAccount(nameAccount_lb);
         }
 
-        
+        #region AnimationsMenu
+        /// <summary>
+        /// khởi tạo timer animation menu
+        /// </summary>
+        private void initializeTimer()
+        {
+            timer = new Timer();
+            timer.Interval = menuAnimationInterval; // Thời gian giữa các bước hoạt ảnh
+            timer.Tick += Timer_Tick; // Đăng ký sự kiện Tick
+        }
+        /// <summary>
+        /// Sự kiện nhấp chuột vào nút menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (isMenuExpanded)
+            {
+                // Nếu menu đang mở, thu gọn nó
+                if (left_Menu_pnn.Width > menuCollapsedWidth)
+                {
+                    left_Menu_pnn.Width -= menuAnimationStepSize;
+                    // Điều chỉnh chiều cao của logo
+                    logo_pn.Height -= logoAnimationStepSize;
+                }
+                else
+                {
+                    timer.Stop();
+                    isMenuExpanded = false;
+                    // đặt lại textimageRelation
+                    buttonMenuShow(TextImageRelation.Overlay);
+                }
+            }
+            else
+            {
+                // Check trạng thái của textImageRelation
+                // Nếu textImageRelation không phải là ImageBeforeText, đặt lại nó
+                if (!isRelationImageBeforeText)
+                {
+                    buttonMenuShow(TextImageRelation.ImageBeforeText);
+                }    
+                    
+                // Nếu menu đang thu gọn, mở rộng nó
+                if (left_Menu_pnn.Width < menuWidth)
+                {
+                    left_Menu_pnn.Width += menuAnimationStepSize;
+                    // Điều chỉnh chiều cao của logo
+                    logo_pn.Height += logoAnimationStepSize;
+                }
+                else
+                {
+                    timer.Stop();
+                    isMenuExpanded = true;
+                    // đặt lại textimageRelation
+                    buttonMenuShow(TextImageRelation.ImageBeforeText);
+                }
+            }
+        }
+        /// <summary>
+        /// Hiển thị nôi dung button menu như thế nào
+        /// Check nếu đã thực hiện thì biến isRelationImageBeforeText sẽ là true
+        /// </summary>
+        /// <param name="textImageRelation"></param>
+        private void buttonMenuShow(TextImageRelation textImageRelation)
+        {
+            study_btn.TextImageRelation = textImageRelation;
+            trial_btn.TextImageRelation = textImageRelation;
+            test_btn.TextImageRelation = textImageRelation;
+            advanced_btn.TextImageRelation = textImageRelation;
+            admin_Management_btn.TextImageRelation = textImageRelation;
+            evaluate_btn.TextImageRelation = textImageRelation;
+
+            isRelationImageBeforeText = true;
+        }
+        /// <summary>
+        /// Sự kiện nhấp chuột vào nút menu để mở rộng hoặc thu gọn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void show_Menu_btn_Click(object sender, EventArgs e)
+        {
+            isRelationImageBeforeText = false;
+            timer.Start();
+
+        }
+
+        #endregion
+
+
     }
 }
