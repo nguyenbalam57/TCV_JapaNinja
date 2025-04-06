@@ -459,6 +459,7 @@
     <Content Include="Images\ButtonImages\bin.png" />
     <Content Include="Images\ButtonImages\compose.png" />
     <Content Include="Images\ButtonImages\eyes.png" />
+    <Content Include="Images\Logo\john_lennon_avatar_icon_263197.ico" />
     <Content Include="Images\Logo\TCV.png" />
   </ItemGroup>
   <ItemGroup>

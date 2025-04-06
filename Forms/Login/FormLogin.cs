@@ -407,5 +407,10 @@ namespace TCV_JapaNinja.Forms.Login
             // update địa chỉ IP
             Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
         }
+
+        private void minus_btn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

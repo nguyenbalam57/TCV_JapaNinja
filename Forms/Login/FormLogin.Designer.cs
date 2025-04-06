@@ -217,6 +217,7 @@
             this.minus_btn.TabIndex = 13;
             this.minus_btn.UseVisualStyleBackColor = true;
             this.minus_btn.Visible = false;
+            this.minus_btn.Click += new System.EventHandler(this.minus_btn_Click);
             this.minus_btn.MouseEnter += new System.EventHandler(this.minus_btn_MouseEnter);
             this.minus_btn.MouseLeave += new System.EventHandler(this.minus_btn_MouseLeave);
             // 

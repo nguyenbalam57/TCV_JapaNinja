@@ -62,6 +62,8 @@ namespace TCV_JapaNinja
         private void TCV_JapaNinja_form_Load(object sender, EventArgs e)
         {
             FrmJPObj = this;
+
+            fullScreenForm();
         }
 
         private void InitializeLoadForm()
@@ -253,8 +255,19 @@ namespace TCV_JapaNinja
             childForm.BringToFront();
             childForm.Show();
         }
-
-        private void logout_btn_Click(object sender, EventArgs e)
+        /// <summary>
+        /// log out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logout_btn();
+        }
+        /// <summary>
+        /// log out ra màn hình login
+        /// </summary>
+        private void logout_btn()
         {
             var formLogin = (FormLogin)Application.OpenForms["FormLogin"];
             this.Hide();
@@ -277,7 +290,7 @@ namespace TCV_JapaNinja
             if(formLogin != null)
             {
                 // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
-                Accounts.clearAccountLogin();
+                Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
                 formLogin.Close();
             }
         }
@@ -382,5 +395,159 @@ namespace TCV_JapaNinja
         #endregion
 
 
+        #region FormResize_CloseMaxSizeHide
+
+        private bool isDragging = false;
+        private bool isResizing = false; // Biến để theo dõi trạng thái kéo
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
+        private Point resizeStartPoitn;
+
+        /*
+         * Kéo di chuyển Form
+         * Kéo mở rộng Form
+         */
+
+        /// <summary>
+        /// Sự kiện nhấp chuột vào form để bắt đầu kéo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TCV_JapaNinja_form_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Kiểm tra xem chuột có nhấn vào góc dưới bên phải của form hay không
+            if (e.Button == MouseButtons.Left && e.X >= this.ClientSize.Width - 10 && e.Y >= this.ClientSize.Height - 10)
+            {
+                isResizing = true; // Bắt đầu kéo để thay đổi kích thước
+                resizeStartPoitn = e.Location; // Lưu vị trí bắt đầu kéo
+            }
+            else if(e.Button == MouseButtons.Left) // Nếu không ở dưới góc phải, bắt đầu kéo
+            {
+                // Nếu không phải đang kéo để thay đổi kích thước, thì di chuyển form
+                isResizing = false; // Dừng kéo để thay đổi kích thước
+                isDragging = true;
+                dragCursorPoint = Cursor.Position; // Lưu vị trí chuột
+                dragFormPoint = this.Location; // Lưu vị trí form
+            }
+                
+        }
+        /// <summary>
+        /// Sự kiện di chuyển chuột để kéo form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TCV_JapaNinja_form_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Kiểm tra xem chuột có nhấn vào góc dưới bên phải của form hay không
+            if (isResizing)
+            {
+                // Tính toán sự khác biệt giữa vị trí chuột hiện tại và vị trí bắt đầu kéo
+                int widthChange = e.X - resizeStartPoitn.X;
+                int heightChange = e.Y - resizeStartPoitn.Y;
+
+                // Cập nhật kích thước của form
+                this.Size = new Size(this.Width + widthChange, this.Height + heightChange);
+                resizeStartPoitn = e.Location; // Cập nhật vị trí chuột
+            }
+            // Nếu không phải đang kéo để thay đổi kích thước, thì di chuyển form
+            else if (isDragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+            else
+            {
+                // Thay đổi con trỏ chuột khi ở gần góc dưới bên phải của form
+                if(e.X >= this.ClientSize.Width - 10 && e.Y >= this.ClientSize.Height - 10)
+                {
+                    this.Cursor = Cursors.SizeNWSE; // Con trỏ chuột thay đổi thành hình mũi tên kéo
+                }
+                else
+                {
+                    this.Cursor = Cursors.Default; // Con trỏ chuột trở về mặc định
+                }
+            }
+        }
+        /// <summary>
+        /// Sự kiện nhả chuột để dừng kéo
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TCV_JapaNinja_form_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDragging = false; // Dừng kéo
+            isResizing = false; // Dừng kéo để thay đổi kích thước
+        }
+
+
+        /// <summary>
+        /// Sự kiện nhấp chuột vào nút thu nhỏ form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hide_icbtn_Click(object sender, EventArgs e)
+        {
+            // Nếu sử dụng this.Hide() thì sẽ không có sự kiện FormClosing, và sẽ ẩn luôn. k hiển thị icon ở thanh tabbar
+            this.WindowState = FormWindowState.Minimized; // Ẩn form
+        }
+        /// <summary>
+        /// Sự kiện nhấp chuột vào nút tối đa hóa hoặc khôi phục kích thước form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void maxSize_icbtn_Click(object sender, EventArgs e)
+        {
+            if(!isScreenForm)
+            {
+                fullScreenForm();
+            }
+            else
+            {
+                normalScreenForm();
+            }
+        }
+
+        private bool isScreenForm = false;
+        /// <summary>
+        /// full screen form
+        /// </summary>
+        private void fullScreenForm()
+        {
+            // Thiết lập kích thước của form để chiếm toàn bộ màn hình
+            maxSize_icbtn.IconChar = IconChar.WindowRestore; // Đổi icon thành icon khôi phục
+            this.Location = new Point(0, 0); // Đặt vị trí ở góc trên bên trái
+            this.StartPosition = FormStartPosition.CenterParent; // Đặt vị trí khởi đầu ở giữa màn hình
+            this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height); // Chiếm toàn bộ màn hình trừ thanh tác vụ
+
+            // Biến sự thay đổi
+            isScreenForm = true;
+        }
+
+        private void normalScreenForm()
+        {
+            // Trở lại trạng thái ban đầu
+            maxSize_icbtn.IconChar = IconChar.WindowMaximize; // Đổi icon thành icon tối đa
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Size = new Size(1200, 800); // Kích thước mặc định của form
+            this.Location = new Point(0, 0); // Đặt vị trí ở góc trên bên trái
+            // Biến sự thay đổi
+            isScreenForm = false;
+        }
+
+        /// <summary>
+        /// Sự kiện nhấp chuột vào nút đóng form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void close_icbtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
+        #endregion
+
+        
     }
 }

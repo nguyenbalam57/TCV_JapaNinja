@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TCV_JapaNinja_form));
             this.bottom_Menu_pn = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,14 +39,19 @@
             this.trial_btn = new FontAwesome.Sharp.IconButton();
             this.study_btn = new FontAwesome.Sharp.IconButton();
             this.top_Desription_pn = new System.Windows.Forms.Panel();
+            this.hide_icbtn = new FontAwesome.Sharp.IconButton();
+            this.maxSize_icbtn = new FontAwesome.Sharp.IconButton();
+            this.close_icbtn = new FontAwesome.Sharp.IconButton();
             this.show_Menu_btn = new FontAwesome.Sharp.IconButton();
-            this.logout_btn = new FontAwesome.Sharp.IconButton();
             this.nameAccount_lb = new System.Windows.Forms.Label();
-            this.sataEllipseControl1 = new SATAUiFramework.Controls.SATAEllipseControl();
             this.left_Menu_pnn = new System.Windows.Forms.Panel();
             this.menu_flpn = new System.Windows.Forms.FlowLayoutPanel();
             this.logo_pn = new System.Windows.Forms.Panel();
             this.logo_pt = new System.Windows.Forms.PictureBox();
+            this.right_Menu_pn = new System.Windows.Forms.Panel();
+            this.sataEllipseControl1 = new SATAUiFramework.Controls.SATAEllipseControl();
+            this.login_ctmnstrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.childForm_pn = new System.Windows.Forms.Panel();
             this.bottom_Menu_pn.SuspendLayout();
             this.top_Desription_pn.SuspendLayout();
@@ -53,6 +59,7 @@
             this.menu_flpn.SuspendLayout();
             this.logo_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo_pt)).BeginInit();
+            this.login_ctmnstrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottom_Menu_pn
@@ -60,16 +67,20 @@
             this.bottom_Menu_pn.BackColor = System.Drawing.Color.White;
             this.bottom_Menu_pn.Controls.Add(this.label1);
             this.bottom_Menu_pn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottom_Menu_pn.Location = new System.Drawing.Point(0, 677);
+            this.bottom_Menu_pn.Location = new System.Drawing.Point(0, 575);
             this.bottom_Menu_pn.Margin = new System.Windows.Forms.Padding(0);
             this.bottom_Menu_pn.Name = "bottom_Menu_pn";
-            this.bottom_Menu_pn.Size = new System.Drawing.Size(1055, 25);
+            this.bottom_Menu_pn.Size = new System.Drawing.Size(1000, 25);
             this.bottom_Menu_pn.TabIndex = 3;
+            this.bottom_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
+            this.bottom_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
+            this.bottom_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(967, 4);
+            this.label1.Location = new System.Drawing.Point(934, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 16);
             this.label1.TabIndex = 0;
@@ -182,7 +193,6 @@
             // 
             // study_btn
             // 
-            this.study_btn.BackColor = System.Drawing.SystemColors.Control;
             this.study_btn.FlatAppearance.BorderSize = 0;
             this.study_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.study_btn.Font = new System.Drawing.Font("Arial", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,14 +215,74 @@
             // top_Desription_pn
             // 
             this.top_Desription_pn.BackColor = System.Drawing.Color.White;
+            this.top_Desription_pn.Controls.Add(this.hide_icbtn);
+            this.top_Desription_pn.Controls.Add(this.maxSize_icbtn);
+            this.top_Desription_pn.Controls.Add(this.close_icbtn);
             this.top_Desription_pn.Controls.Add(this.show_Menu_btn);
-            this.top_Desription_pn.Controls.Add(this.logout_btn);
             this.top_Desription_pn.Controls.Add(this.nameAccount_lb);
             this.top_Desription_pn.Dock = System.Windows.Forms.DockStyle.Top;
             this.top_Desription_pn.Location = new System.Drawing.Point(0, 0);
+            this.top_Desription_pn.Margin = new System.Windows.Forms.Padding(0);
             this.top_Desription_pn.Name = "top_Desription_pn";
-            this.top_Desription_pn.Size = new System.Drawing.Size(1055, 40);
+            this.top_Desription_pn.Size = new System.Drawing.Size(1000, 38);
             this.top_Desription_pn.TabIndex = 0;
+            this.top_Desription_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
+            this.top_Desription_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
+            this.top_Desription_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
+            // 
+            // hide_icbtn
+            // 
+            this.hide_icbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hide_icbtn.FlatAppearance.BorderSize = 0;
+            this.hide_icbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.hide_icbtn.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
+            this.hide_icbtn.IconColor = System.Drawing.Color.Black;
+            this.hide_icbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.hide_icbtn.IconSize = 25;
+            this.hide_icbtn.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.hide_icbtn.Location = new System.Drawing.Point(774, -4);
+            this.hide_icbtn.Margin = new System.Windows.Forms.Padding(0);
+            this.hide_icbtn.Name = "hide_icbtn";
+            this.hide_icbtn.Size = new System.Drawing.Size(75, 45);
+            this.hide_icbtn.TabIndex = 6;
+            this.hide_icbtn.UseVisualStyleBackColor = true;
+            this.hide_icbtn.Click += new System.EventHandler(this.hide_icbtn_Click);
+            // 
+            // maxSize_icbtn
+            // 
+            this.maxSize_icbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxSize_icbtn.FlatAppearance.BorderSize = 0;
+            this.maxSize_icbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.maxSize_icbtn.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
+            this.maxSize_icbtn.IconColor = System.Drawing.Color.Black;
+            this.maxSize_icbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.maxSize_icbtn.IconSize = 25;
+            this.maxSize_icbtn.Location = new System.Drawing.Point(849, -4);
+            this.maxSize_icbtn.Margin = new System.Windows.Forms.Padding(0);
+            this.maxSize_icbtn.Name = "maxSize_icbtn";
+            this.maxSize_icbtn.Size = new System.Drawing.Size(75, 45);
+            this.maxSize_icbtn.TabIndex = 6;
+            this.maxSize_icbtn.UseVisualStyleBackColor = true;
+            this.maxSize_icbtn.Click += new System.EventHandler(this.maxSize_icbtn_Click);
+            // 
+            // close_icbtn
+            // 
+            this.close_icbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.close_icbtn.BackColor = System.Drawing.Color.Red;
+            this.close_icbtn.FlatAppearance.BorderSize = 0;
+            this.close_icbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.close_icbtn.ForeColor = System.Drawing.Color.White;
+            this.close_icbtn.IconChar = FontAwesome.Sharp.IconChar.X;
+            this.close_icbtn.IconColor = System.Drawing.Color.White;
+            this.close_icbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.close_icbtn.IconSize = 25;
+            this.close_icbtn.Location = new System.Drawing.Point(924, -4);
+            this.close_icbtn.Margin = new System.Windows.Forms.Padding(0);
+            this.close_icbtn.Name = "close_icbtn";
+            this.close_icbtn.Size = new System.Drawing.Size(75, 45);
+            this.close_icbtn.TabIndex = 6;
+            this.close_icbtn.UseVisualStyleBackColor = false;
+            this.close_icbtn.Click += new System.EventHandler(this.close_icbtn_Click);
             // 
             // show_Menu_btn
             // 
@@ -222,45 +292,24 @@
             this.show_Menu_btn.IconColor = System.Drawing.Color.Black;
             this.show_Menu_btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.show_Menu_btn.IconSize = 35;
-            this.show_Menu_btn.Location = new System.Drawing.Point(14, 5);
+            this.show_Menu_btn.Location = new System.Drawing.Point(13, 1);
             this.show_Menu_btn.Margin = new System.Windows.Forms.Padding(0);
             this.show_Menu_btn.Name = "show_Menu_btn";
-            this.show_Menu_btn.Size = new System.Drawing.Size(29, 31);
+            this.show_Menu_btn.Size = new System.Drawing.Size(30, 35);
             this.show_Menu_btn.TabIndex = 5;
             this.show_Menu_btn.UseVisualStyleBackColor = true;
             this.show_Menu_btn.Click += new System.EventHandler(this.show_Menu_btn_Click);
             // 
-            // logout_btn
-            // 
-            this.logout_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.logout_btn.FlatAppearance.BorderSize = 0;
-            this.logout_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.logout_btn.IconChar = FontAwesome.Sharp.IconChar.RightFromBracket;
-            this.logout_btn.IconColor = System.Drawing.Color.Black;
-            this.logout_btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.logout_btn.IconSize = 17;
-            this.logout_btn.Location = new System.Drawing.Point(1013, 7);
-            this.logout_btn.Margin = new System.Windows.Forms.Padding(0);
-            this.logout_btn.Name = "logout_btn";
-            this.logout_btn.Size = new System.Drawing.Size(17, 17);
-            this.logout_btn.TabIndex = 1;
-            this.logout_btn.UseVisualStyleBackColor = true;
-            this.logout_btn.Click += new System.EventHandler(this.logout_btn_Click);
-            // 
             // nameAccount_lb
             // 
-            this.nameAccount_lb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameAccount_lb.Location = new System.Drawing.Point(954, 7);
+            this.nameAccount_lb.AutoSize = true;
+            this.nameAccount_lb.ContextMenuStrip = this.login_ctmnstrip;
+            this.nameAccount_lb.Location = new System.Drawing.Point(46, 10);
             this.nameAccount_lb.Name = "nameAccount_lb";
-            this.nameAccount_lb.Size = new System.Drawing.Size(56, 17);
+            this.nameAccount_lb.Size = new System.Drawing.Size(41, 16);
             this.nameAccount_lb.TabIndex = 0;
             this.nameAccount_lb.Text = "Name";
-            this.nameAccount_lb.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // sataEllipseControl1
-            // 
-            this.sataEllipseControl1.CornerRadius = 25;
-            this.sataEllipseControl1.TargetControl = this;
+            this.nameAccount_lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // left_Menu_pnn
             // 
@@ -268,10 +317,10 @@
             this.left_Menu_pnn.Controls.Add(this.menu_flpn);
             this.left_Menu_pnn.Controls.Add(this.logo_pn);
             this.left_Menu_pnn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.left_Menu_pnn.Location = new System.Drawing.Point(0, 40);
+            this.left_Menu_pnn.Location = new System.Drawing.Point(0, 38);
             this.left_Menu_pnn.Margin = new System.Windows.Forms.Padding(0);
             this.left_Menu_pnn.Name = "left_Menu_pnn";
-            this.left_Menu_pnn.Size = new System.Drawing.Size(200, 637);
+            this.left_Menu_pnn.Size = new System.Drawing.Size(200, 537);
             this.left_Menu_pnn.TabIndex = 4;
             // 
             // menu_flpn
@@ -288,7 +337,7 @@
             this.menu_flpn.Location = new System.Drawing.Point(0, 100);
             this.menu_flpn.Margin = new System.Windows.Forms.Padding(0);
             this.menu_flpn.Name = "menu_flpn";
-            this.menu_flpn.Size = new System.Drawing.Size(200, 537);
+            this.menu_flpn.Size = new System.Drawing.Size(200, 437);
             this.menu_flpn.TabIndex = 1;
             // 
             // logo_pn
@@ -314,39 +363,78 @@
             this.logo_pt.TabIndex = 0;
             this.logo_pt.TabStop = false;
             // 
+            // right_Menu_pn
+            // 
+            this.right_Menu_pn.BackColor = System.Drawing.Color.White;
+            this.right_Menu_pn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.right_Menu_pn.Location = new System.Drawing.Point(990, 38);
+            this.right_Menu_pn.Name = "right_Menu_pn";
+            this.right_Menu_pn.Size = new System.Drawing.Size(10, 537);
+            this.right_Menu_pn.TabIndex = 0;
+            this.right_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
+            this.right_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
+            this.right_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
+            // 
+            // sataEllipseControl1
+            // 
+            this.sataEllipseControl1.CornerRadius = 0;
+            this.sataEllipseControl1.TargetControl = this;
+            // 
+            // login_ctmnstrip
+            // 
+            this.login_ctmnstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logoutToolStripMenuItem});
+            this.login_ctmnstrip.Name = "login_ctmnstrip";
+            this.login_ctmnstrip.Size = new System.Drawing.Size(118, 26);
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.logoutToolStripMenuItem.Text = "Log Out";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
+            // 
             // childForm_pn
             // 
             this.childForm_pn.BackColor = System.Drawing.Color.White;
             this.childForm_pn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.childForm_pn.Location = new System.Drawing.Point(200, 40);
+            this.childForm_pn.Location = new System.Drawing.Point(200, 38);
             this.childForm_pn.Name = "childForm_pn";
-            this.childForm_pn.Size = new System.Drawing.Size(855, 637);
-            this.childForm_pn.TabIndex = 0;
+            this.childForm_pn.Size = new System.Drawing.Size(790, 537);
+            this.childForm_pn.TabIndex = 6;
             // 
             // TCV_JapaNinja_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 702);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.childForm_pn);
+            this.Controls.Add(this.right_Menu_pn);
             this.Controls.Add(this.left_Menu_pnn);
             this.Controls.Add(this.bottom_Menu_pn);
             this.Controls.Add(this.top_Desription_pn);
             this.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "TCV_JapaNinja_form";
             this.Text = "TCV Japan Ninja";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TCV_JapaNinja_form_FormClosed);
             this.Load += new System.EventHandler(this.TCV_JapaNinja_form_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
             this.bottom_Menu_pn.ResumeLayout(false);
             this.bottom_Menu_pn.PerformLayout();
             this.top_Desription_pn.ResumeLayout(false);
+            this.top_Desription_pn.PerformLayout();
             this.left_Menu_pnn.ResumeLayout(false);
             this.menu_flpn.ResumeLayout(false);
             this.logo_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo_pt)).EndInit();
+            this.login_ctmnstrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -358,19 +446,24 @@
         private FontAwesome.Sharp.IconButton study_btn;
         private FontAwesome.Sharp.IconButton test_btn;
         private FontAwesome.Sharp.IconButton trial_btn;
-        private FontAwesome.Sharp.IconButton logout_btn;
         private System.Windows.Forms.Label nameAccount_lb;
         private FontAwesome.Sharp.IconButton show_Menu_btn;
         private FontAwesome.Sharp.IconButton evaluate_btn;
         private FontAwesome.Sharp.IconButton advanced_btn;
         private FontAwesome.Sharp.IconButton admin_Management_btn;
-        private SATAUiFramework.Controls.SATAEllipseControl sataEllipseControl1;
         private System.Windows.Forms.Panel left_Menu_pnn;
-        private System.Windows.Forms.Panel childForm_pn;
+        private System.Windows.Forms.Panel right_Menu_pn;
         private System.Windows.Forms.FlowLayoutPanel menu_flpn;
         private System.Windows.Forms.Panel logo_pn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox logo_pt;
+        private SATAUiFramework.Controls.SATAEllipseControl sataEllipseControl1;
+        private FontAwesome.Sharp.IconButton close_icbtn;
+        private FontAwesome.Sharp.IconButton hide_icbtn;
+        private FontAwesome.Sharp.IconButton maxSize_icbtn;
+        private System.Windows.Forms.ContextMenuStrip login_ctmnstrip;
+        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
+        private System.Windows.Forms.Panel childForm_pn;
     }
 }
 
