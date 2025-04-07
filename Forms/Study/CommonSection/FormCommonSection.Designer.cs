@@ -157,7 +157,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormCommonSection";
-            this.Text = "FormCommonSection";
+            this.Text = "     ";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

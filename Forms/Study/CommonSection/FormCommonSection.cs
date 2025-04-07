@@ -46,6 +46,12 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         {
             IconButton button = (IconButton)sender;
 
+            var frmLeaning = (FormLearning)Application.OpenForms["FormLearning"];
+            if (frmLeaning == null) {frmLeaning = new FormLearning(); }
+            frmLeaning.getDataTableLeaningData(kanjiTable);
+
+            openChildForm(frmLeaning);
+
         }
 
         private void flashCard_btn_Click(object sender, EventArgs e)

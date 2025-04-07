@@ -85,6 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.viewLeaning_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.viewLeaning_dgv.Location = new System.Drawing.Point(3, 3);
+            this.viewLeaning_dgv.Margin = new System.Windows.Forms.Padding(0);
             this.viewLeaning_dgv.Name = "viewLeaning_dgv";
             this.viewLeaning_dgv.Size = new System.Drawing.Size(1062, 270);
             this.viewLeaning_dgv.TabIndex = 0;
