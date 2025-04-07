@@ -412,5 +412,48 @@ namespace TCV_JapaNinja.Forms.Login
         {
 
         }
+
+        #region Movable Form
+        /* Di chuyển form */
+
+        private bool isDragging = false; // Biến để theo dõi trạng thái kéo
+        private Point lastCursor; // Vị trí con trỏ chuột trước khi kéo
+        private Point lastForm; // Vị trí form trước khi kéo
+
+        private void MovableForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Kiểm tra xem nút chuột trái có được nhấn không
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = true; // Bắt đầu kéo
+                lastCursor = Cursor.Position; // Lưu vị trí con trỏ chuột
+                lastForm = this.Location; // Lưu vị trí form
+            }
+        }
+
+        private void MovableForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Kiểm tra xem đang kéo form không
+            if (isDragging)
+            {
+                // Tính toán vị trí mới của form
+                Point newCursor = Cursor.Position;
+                int deltaX = newCursor.X - lastCursor.X;
+                int deltaY = newCursor.Y - lastCursor.Y;
+                this.Location = new Point(lastForm.X + deltaX, lastForm.Y + deltaY);
+            }
+        }
+
+        private void MovableForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                // Kết thúc kéo
+                isDragging = false;
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -192,7 +192,7 @@
             this.exit_btn.IconColor = System.Drawing.Color.Black;
             this.exit_btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.exit_btn.IconSize = 25;
-            this.exit_btn.Location = new System.Drawing.Point(948, 1);
+            this.exit_btn.Location = new System.Drawing.Point(948, -1);
             this.exit_btn.Margin = new System.Windows.Forms.Padding(0);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Size = new System.Drawing.Size(80, 31);
@@ -210,7 +210,7 @@
             this.minus_btn.IconColor = System.Drawing.Color.Black;
             this.minus_btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.minus_btn.IconSize = 25;
-            this.minus_btn.Location = new System.Drawing.Point(868, 1);
+            this.minus_btn.Location = new System.Drawing.Point(868, -1);
             this.minus_btn.Margin = new System.Windows.Forms.Padding(0);
             this.minus_btn.Name = "minus_btn";
             this.minus_btn.Size = new System.Drawing.Size(80, 31);
@@ -256,6 +256,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormLogin";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormLogin_FormClosed);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.logo_ptb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.user_ptb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lock_ptb)).EndInit();
