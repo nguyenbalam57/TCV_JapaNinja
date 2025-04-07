@@ -382,10 +382,12 @@
             // right_Menu_pn
             // 
             this.right_Menu_pn.BackColor = System.Drawing.Color.White;
+            this.right_Menu_pn.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.right_Menu_pn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.right_Menu_pn.Location = new System.Drawing.Point(998, 38);
+            this.right_Menu_pn.Location = new System.Drawing.Point(997, 38);
+            this.right_Menu_pn.Margin = new System.Windows.Forms.Padding(0);
             this.right_Menu_pn.Name = "right_Menu_pn";
-            this.right_Menu_pn.Size = new System.Drawing.Size(2, 537);
+            this.right_Menu_pn.Size = new System.Drawing.Size(3, 537);
             this.right_Menu_pn.TabIndex = 0;
             this.right_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseDown);
             this.right_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseMove);
@@ -402,7 +404,7 @@
             this.childForm_pn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.childForm_pn.Location = new System.Drawing.Point(200, 38);
             this.childForm_pn.Name = "childForm_pn";
-            this.childForm_pn.Size = new System.Drawing.Size(798, 537);
+            this.childForm_pn.Size = new System.Drawing.Size(797, 537);
             this.childForm_pn.TabIndex = 6;
             // 
             // TCV_JapaNinja_form

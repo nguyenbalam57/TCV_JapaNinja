@@ -511,14 +511,12 @@ namespace TCV_JapaNinja
         }
 
 
-        
-
-        
-
-
         #endregion
 
         #region CloseMaxSizeHide
+
+        private Size sizeStart; // Size truước khi mở rộng
+        private Point locationStart; // Vị trí truớc khi mở rộng
 
         /// <summary>
         /// Sự kiện nhấp chuột vào nút thu nhỏ form
@@ -553,6 +551,10 @@ namespace TCV_JapaNinja
         /// </summary>
         private void fullScreenForm()
         {
+            // lấy vị trí và size trước khi mở rộng
+            sizeStart = this.Size; // Lưu kích thước ban đầu
+            locationStart = this.Location;
+
             // Thiết lập kích thước của form để chiếm toàn bộ màn hình
             maxSize_icbtn.IconChar = IconChar.WindowRestore; // Đổi icon thành icon khôi phục
             this.Location = new Point(0, 0); // Đặt vị trí ở góc trên bên trái
@@ -570,8 +572,8 @@ namespace TCV_JapaNinja
             maxSize_icbtn.IconChar = IconChar.WindowMaximize; // Đổi icon thành icon tối đa
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Size = new Size(1200, 800); // Kích thước mặc định của form
-            this.Location = new Point(0, 0); // Đặt vị trí ở góc trên bên trái
+            this.Size = sizeStart; // Kích thước mặc định của form
+            this.Location = locationStart; // Đặt vị trí ở góc trên bên trái
             // Biến sự thay đổi
             isScreenForm = false;
         }
