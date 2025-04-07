@@ -63,7 +63,8 @@ namespace TCV_JapaNinja
         {
             FrmJPObj = this;
 
-            fullScreenForm();
+            //fullScreenForm();
+
         }
 
         private void InitializeLoadForm()
@@ -76,6 +77,7 @@ namespace TCV_JapaNinja
                 admin_Management_btn.Visible = true;
             }    
         }
+
         /// <summary>
         /// set color and name luc thay doi gia tri
         /// </summary>
@@ -129,7 +131,6 @@ namespace TCV_JapaNinja
                 }
             }
         }
-
 
         /// <summary>
         /// active icon button menu level 1
@@ -395,7 +396,7 @@ namespace TCV_JapaNinja
         #endregion
 
 
-        #region FormResize_CloseMaxSizeHide
+        #region FormResize
 
         private bool isDragging = false;
         private bool isResizing = false; // Biến để theo dõi trạng thái kéo
@@ -403,29 +404,83 @@ namespace TCV_JapaNinja
         private Point dragFormPoint;
         private Point resizeStartPoitn;
 
+
+        /*thông số để nhận vị trí con trỏ chuột*/
+        private const int HTCLIENT = 1;
+        private const int HTBOTTOMRIGHT = 17;
+        private const int HTBOTTOM = 15;
+        private const int HTRIGHT = 11;
+
         /*
          * Kéo di chuyển Form
          * Kéo mở rộng Form
          */
+        /// <summary>
+        /// Xử lý thông điệp Windows để thay đổi kích thước form
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0084) // WM_NCHITTEST
+            {
+                Point mousePos = this.PointToClient(new Point(m.LParam.ToInt32()));
+                if (mousePos.X >= this.ClientSize.Width - 10 && mousePos.Y >= this.ClientSize.Height - 10)
+                {
+                    m.Result = (IntPtr)HTBOTTOMRIGHT; // Kéo từ góc dưới bên phải
+                    return;
+                }
+                else if (mousePos.X >= this.ClientSize.Width - 10)
+                {
+                    m.Result = (IntPtr)HTRIGHT; // Kéo từ bên phải
+                    return;
+                }
+                else if (mousePos.Y >= this.ClientSize.Height - 10)
+                {
+                    m.Result = (IntPtr)HTBOTTOM; // Kéo từ dưới
+                    return;
+                }
+            }
+            base.WndProc(ref m);
+        }
+
+        private void ResizeForm_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left) 
+            {
+                isResizing = true;
+                resizeStartPoitn = e.Location; // Lưu vị trí bắt đầu kéo
+            }
+        }
+
+        private void ResizeForm_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isResizing)
+            {
+                // Tính toán sự khác biệt giữa vị trí chuột hiện tại và vị trí bắt đầu kéo
+                int widthChange = e.X - resizeStartPoitn.X;
+                int heightChange = e.Y - resizeStartPoitn.Y;
+                // Cập nhật kích thước của form
+                this.Size = new Size(this.Width + widthChange, this.Height + heightChange);
+                resizeStartPoitn = e.Location; // Cập nhật vị trí chuột
+            }
+        }
+
+        private void ResizeForm_MouseUp(object sender, MouseEventArgs e)
+        {
+            isResizing = false; // Dừng kéo
+        }
+
 
         /// <summary>
         /// Sự kiện nhấp chuột vào form để bắt đầu kéo
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TCV_JapaNinja_form_MouseDown(object sender, MouseEventArgs e)
+        private void MovableForm_MouseDown(object sender, MouseEventArgs e)
         {
-            // Kiểm tra xem chuột có nhấn vào góc dưới bên phải của form hay không
-            if (e.Button == MouseButtons.Left && e.X >= this.ClientSize.Width - 10 && e.Y >= this.ClientSize.Height - 10)
+            if(e.Button == MouseButtons.Left) // Kiểm tra nếu nhấn chuột trái
             {
-                isResizing = true; // Bắt đầu kéo để thay đổi kích thước
-                resizeStartPoitn = e.Location; // Lưu vị trí bắt đầu kéo
-            }
-            else if(e.Button == MouseButtons.Left) // Nếu không ở dưới góc phải, bắt đầu kéo
-            {
-                // Nếu không phải đang kéo để thay đổi kích thước, thì di chuyển form
-                isResizing = false; // Dừng kéo để thay đổi kích thước
-                isDragging = true;
+                isDragging = true; // Bắt đầu kéo
                 dragCursorPoint = Cursor.Position; // Lưu vị trí chuột
                 dragFormPoint = this.Location; // Lưu vị trí form
             }
@@ -436,36 +491,13 @@ namespace TCV_JapaNinja
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TCV_JapaNinja_form_MouseMove(object sender, MouseEventArgs e)
+        private void MovableForm_MouseMove(object sender, MouseEventArgs e)
         {
-            // Kiểm tra xem chuột có nhấn vào góc dưới bên phải của form hay không
-            if (isResizing)
-            {
-                // Tính toán sự khác biệt giữa vị trí chuột hiện tại và vị trí bắt đầu kéo
-                int widthChange = e.X - resizeStartPoitn.X;
-                int heightChange = e.Y - resizeStartPoitn.Y;
-
-                // Cập nhật kích thước của form
-                this.Size = new Size(this.Width + widthChange, this.Height + heightChange);
-                resizeStartPoitn = e.Location; // Cập nhật vị trí chuột
-            }
             // Nếu không phải đang kéo để thay đổi kích thước, thì di chuyển form
-            else if (isDragging)
+            if (isDragging)
             {
                 Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
                 this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-            else
-            {
-                // Thay đổi con trỏ chuột khi ở gần góc dưới bên phải của form
-                if(e.X >= this.ClientSize.Width - 10 && e.Y >= this.ClientSize.Height - 10)
-                {
-                    this.Cursor = Cursors.SizeNWSE; // Con trỏ chuột thay đổi thành hình mũi tên kéo
-                }
-                else
-                {
-                    this.Cursor = Cursors.Default; // Con trỏ chuột trở về mặc định
-                }
             }
         }
         /// <summary>
@@ -473,12 +505,20 @@ namespace TCV_JapaNinja
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TCV_JapaNinja_form_MouseUp(object sender, MouseEventArgs e)
+        private void MovableForm_MouseUp(object sender, MouseEventArgs e)
         {
             isDragging = false; // Dừng kéo
-            isResizing = false; // Dừng kéo để thay đổi kích thước
         }
 
+
+        
+
+        
+
+
+        #endregion
+
+        #region CloseMaxSizeHide
 
         /// <summary>
         /// Sự kiện nhấp chuột vào nút thu nhỏ form
@@ -497,7 +537,7 @@ namespace TCV_JapaNinja
         /// <param name="e"></param>
         private void maxSize_icbtn_Click(object sender, EventArgs e)
         {
-            if(!isScreenForm)
+            if (!isScreenForm)
             {
                 fullScreenForm();
             }
@@ -523,6 +563,7 @@ namespace TCV_JapaNinja
             isScreenForm = true;
         }
 
+
         private void normalScreenForm()
         {
             // Trở lại trạng thái ban đầu
@@ -544,10 +585,25 @@ namespace TCV_JapaNinja
         {
             this.Close();
         }
+        private void close_icbtn_MouseEnter(object sender, EventArgs e)
+        {
+            // Thay đổi màu nền khi chuột di chuyển vào nút đóng
+            IconButton iconButton = (IconButton)sender;
+            iconButton.BackColor = Color.Red;
+            iconButton.IconColor = Color.White; // Thay đổi màu icon
+        }
 
-
+        private void close_icbtn_MouseLeave(object sender, EventArgs e)
+        {
+            IconButton iconButton = (IconButton)sender;
+            // Đặt lại màu nền khi chuột rời khỏi nút đóng
+            iconButton.BackColor = Color.White; // Màu mặc định
+            iconButton.IconColor = Color.Black; // Màu mặc định của icon
+        }
         #endregion
 
-        
+
+
+
     }
 }

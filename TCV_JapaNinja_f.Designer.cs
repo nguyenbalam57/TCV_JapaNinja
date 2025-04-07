@@ -44,22 +44,22 @@
             this.close_icbtn = new FontAwesome.Sharp.IconButton();
             this.show_Menu_btn = new FontAwesome.Sharp.IconButton();
             this.nameAccount_lb = new System.Windows.Forms.Label();
+            this.login_ctmnstrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.left_Menu_pnn = new System.Windows.Forms.Panel();
             this.menu_flpn = new System.Windows.Forms.FlowLayoutPanel();
             this.logo_pn = new System.Windows.Forms.Panel();
             this.logo_pt = new System.Windows.Forms.PictureBox();
             this.right_Menu_pn = new System.Windows.Forms.Panel();
             this.sataEllipseControl1 = new SATAUiFramework.Controls.SATAEllipseControl();
-            this.login_ctmnstrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.childForm_pn = new System.Windows.Forms.Panel();
             this.bottom_Menu_pn.SuspendLayout();
             this.top_Desription_pn.SuspendLayout();
+            this.login_ctmnstrip.SuspendLayout();
             this.left_Menu_pnn.SuspendLayout();
             this.menu_flpn.SuspendLayout();
             this.logo_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo_pt)).BeginInit();
-            this.login_ctmnstrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottom_Menu_pn
@@ -72,9 +72,9 @@
             this.bottom_Menu_pn.Name = "bottom_Menu_pn";
             this.bottom_Menu_pn.Size = new System.Drawing.Size(1000, 25);
             this.bottom_Menu_pn.TabIndex = 3;
-            this.bottom_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
-            this.bottom_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
-            this.bottom_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
+            this.bottom_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseDown);
+            this.bottom_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseMove);
+            this.bottom_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseUp);
             // 
             // label1
             // 
@@ -226,9 +226,9 @@
             this.top_Desription_pn.Name = "top_Desription_pn";
             this.top_Desription_pn.Size = new System.Drawing.Size(1000, 38);
             this.top_Desription_pn.TabIndex = 0;
-            this.top_Desription_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
-            this.top_Desription_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
-            this.top_Desription_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
+            this.top_Desription_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseDown);
+            this.top_Desription_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseMove);
+            this.top_Desription_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MovableForm_MouseUp);
             // 
             // hide_icbtn
             // 
@@ -268,12 +268,12 @@
             // close_icbtn
             // 
             this.close_icbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.close_icbtn.BackColor = System.Drawing.Color.Red;
+            this.close_icbtn.BackColor = System.Drawing.Color.White;
             this.close_icbtn.FlatAppearance.BorderSize = 0;
             this.close_icbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.close_icbtn.ForeColor = System.Drawing.Color.White;
             this.close_icbtn.IconChar = FontAwesome.Sharp.IconChar.X;
-            this.close_icbtn.IconColor = System.Drawing.Color.White;
+            this.close_icbtn.IconColor = System.Drawing.Color.Black;
             this.close_icbtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.close_icbtn.IconSize = 25;
             this.close_icbtn.Location = new System.Drawing.Point(924, -4);
@@ -283,6 +283,8 @@
             this.close_icbtn.TabIndex = 6;
             this.close_icbtn.UseVisualStyleBackColor = false;
             this.close_icbtn.Click += new System.EventHandler(this.close_icbtn_Click);
+            this.close_icbtn.MouseEnter += new System.EventHandler(this.close_icbtn_MouseEnter);
+            this.close_icbtn.MouseLeave += new System.EventHandler(this.close_icbtn_MouseLeave);
             // 
             // show_Menu_btn
             // 
@@ -310,6 +312,20 @@
             this.nameAccount_lb.TabIndex = 0;
             this.nameAccount_lb.Text = "Name";
             this.nameAccount_lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // login_ctmnstrip
+            // 
+            this.login_ctmnstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logoutToolStripMenuItem});
+            this.login_ctmnstrip.Name = "login_ctmnstrip";
+            this.login_ctmnstrip.Size = new System.Drawing.Size(118, 26);
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.logoutToolStripMenuItem.Text = "Log Out";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // left_Menu_pnn
             // 
@@ -367,32 +383,18 @@
             // 
             this.right_Menu_pn.BackColor = System.Drawing.Color.White;
             this.right_Menu_pn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.right_Menu_pn.Location = new System.Drawing.Point(990, 38);
+            this.right_Menu_pn.Location = new System.Drawing.Point(998, 38);
             this.right_Menu_pn.Name = "right_Menu_pn";
-            this.right_Menu_pn.Size = new System.Drawing.Size(10, 537);
+            this.right_Menu_pn.Size = new System.Drawing.Size(2, 537);
             this.right_Menu_pn.TabIndex = 0;
-            this.right_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
-            this.right_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
-            this.right_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
+            this.right_Menu_pn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseDown);
+            this.right_Menu_pn.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseMove);
+            this.right_Menu_pn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ResizeForm_MouseUp);
             // 
             // sataEllipseControl1
             // 
-            this.sataEllipseControl1.CornerRadius = 0;
+            this.sataEllipseControl1.CornerRadius = 10;
             this.sataEllipseControl1.TargetControl = this;
-            // 
-            // login_ctmnstrip
-            // 
-            this.login_ctmnstrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.logoutToolStripMenuItem});
-            this.login_ctmnstrip.Name = "login_ctmnstrip";
-            this.login_ctmnstrip.Size = new System.Drawing.Size(118, 26);
-            // 
-            // logoutToolStripMenuItem
-            // 
-            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.logoutToolStripMenuItem.Text = "Log Out";
-            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // childForm_pn
             // 
@@ -400,7 +402,7 @@
             this.childForm_pn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.childForm_pn.Location = new System.Drawing.Point(200, 38);
             this.childForm_pn.Name = "childForm_pn";
-            this.childForm_pn.Size = new System.Drawing.Size(790, 537);
+            this.childForm_pn.Size = new System.Drawing.Size(798, 537);
             this.childForm_pn.TabIndex = 6;
             // 
             // TCV_JapaNinja_form
@@ -423,18 +425,15 @@
             this.Text = "TCV Japan Ninja";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TCV_JapaNinja_form_FormClosed);
             this.Load += new System.EventHandler(this.TCV_JapaNinja_form_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TCV_JapaNinja_form_MouseUp);
             this.bottom_Menu_pn.ResumeLayout(false);
             this.bottom_Menu_pn.PerformLayout();
             this.top_Desription_pn.ResumeLayout(false);
             this.top_Desription_pn.PerformLayout();
+            this.login_ctmnstrip.ResumeLayout(false);
             this.left_Menu_pnn.ResumeLayout(false);
             this.menu_flpn.ResumeLayout(false);
             this.logo_pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo_pt)).EndInit();
-            this.login_ctmnstrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
