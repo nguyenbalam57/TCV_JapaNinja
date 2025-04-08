@@ -63,7 +63,7 @@
       <HintPath>packages\SATAUiFramework.1.1.2\lib\net40\SATAUiFramework.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -259,6 +259,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.Designer.cs">
+      <DependentUpon>LearningWordDisplay.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.resx">
       <DependentUpon>FormGroup.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,6 +355,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.resx">
+      <DependentUpon>LearningWordDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Fonts\Noto_Sans_JP\NotoSansJP-VariableFont_wght.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TCV_JapaNinja.Class;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
@@ -40,10 +41,27 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         {
             leaningData = new DataTable();
             leaningData = dataTable;
-            viewLeaning_dgv.DataSource = leaningData;
+            //viewLeaning_dgv.DataSource = leaningData;
+
+            setDataLayoutKanji();
         }
 
+        public void setDataLayoutKanji()
+        {
+            if(leaningData == null || leaningData.Rows.Count == 0) return;
+            foreach (DataRow row in leaningData.Rows) 
+            {
+                UserControls.Studys.CommonSections.Learnings.LearningWordDisplay learningWordDisplay = new UserControls.Studys.CommonSections.Learnings.LearningWordDisplay();
+                //learningWordDisplay.Dock = DockStyle.Top;
+                learningWordDisplay.vocabulary_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Kanji]].ToString();
+                learningWordDisplay.phienAm_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_HanTu]].ToString();
+                learningWordDisplay.meaning_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_TiengViet]].ToString();
+                //learningWordDisplay.Anchor = learningWordDisplay.Anchor | AnchorStyles.Left | AnchorStyles.Right;
+                learningWordDisplay.Size = new Size(viewVocabulary_flpn.Size.Width, learningWordDisplay.Size.Height);
 
+                viewVocabulary_flpn.Controls.Add(learningWordDisplay);
+            }
+        }
 
 
     }
