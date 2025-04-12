@@ -413,6 +413,33 @@ namespace TCV_JapaNinja.Class
 
         #endregion
 
+        #region IMAGES
+
+        public enum enImageCol
+        {
+            ImageCol_Id,
+            ImageCol_Data,
+            ImageCol_Type,
+            ImageCol_Name,
+            ImageCol_CreatedDate,
+            ImageCol_UpdatedDate,
+            ImageCol_
+        }
+
+        public static string[] imagesCol = new string[(int)enImageCol.ImageCol_]
+        {
+            "imageId",//ImageCol_Id,
+            "imageData",//ImageCol_Data,
+            "imageType",//ImageCol_Type,
+            "imageName",//ImageCol_Name,
+            "createdDate",//ImageCol_CreatedDate,
+            "updatedDate"//ImageCol_UpdatedDate,
+        };
+
+        #endregion
+
+
+
         #region KANJI
 
         public enum enKanjiCol
@@ -644,11 +671,13 @@ namespace TCV_JapaNinja.Class
         public enum enUserCol
         {
             UserCol_Id,
+            UserCol_Image,
             UserCol_EmployeeCode,
             UserCol_Name,
             UserCol_Pasword,
             UserCol_PaswordOld,
             UserCol_Description,
+            UserCol_Email,
             UserCol_CreatedDate,
             UserCol_UpdatedDate,
             UserCol_IsActive,
@@ -661,11 +690,13 @@ namespace TCV_JapaNinja.Class
         public static string[] userCol = new string[(int)enUserCol.UserCol_]
         {
             "userId",//UserCol_Id,
+            "userImage",//UserCol_Image,
             "employeeCode",//UserCol_EmployeeCode,
             "userName",//UserCol_Name,
             "userPassword",//UserCol_Pasword,
             "userPasswordOld",//UserCol_PaswordOld,
             "userDescription",//UserCol_Description,
+            "userEmail",//UserCol_Email,
             "createdDate",//UserCol_CreatedDate,
             "updatedDate",//UserCol_UpdatedDate,
             "isActive",//UserCol_IsActive,
