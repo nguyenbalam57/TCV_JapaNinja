@@ -25,6 +25,7 @@ namespace TCV_JapaNinja.Forms.Login
             vdLanguageListCombobox(language_cbb, Languages.LanguageIndex);
             clearAccout();
         }
+
         /// <summary>
         /// su dung nut nhan enter
         /// lay su kien enter
@@ -206,16 +207,21 @@ namespace TCV_JapaNinja.Forms.Login
                     clearAccout();
 
                     this.Hide();
-                    var form = (TCV_JapaNinja_form)Application.OpenForms["TCV_JapaNinja_form"];
+                    //var form = (TCV_JapaNinja_form)Application.OpenForms["TCV_JapaNinja_form"];
+                    // Thay đổi form main
+                    var form = (TCV_JapaNinja)Application.OpenForms["TCV_JapaNinja"];
                     if (form == null)
                     {
-                        form = new TCV_JapaNinja_form();
+                        //form = new TCV_JapaNinja_form();
+                        // Thay đổi form main
+                        form = new TCV_JapaNinja();
                         form.Show();
                     }
                     else
                     {
                         form.WindowState = FormWindowState.Normal;
-                        TCV_JapaNinja_form.SetNameAccount();
+                        //TCV_JapaNinja_form.SetNameAccount();
+                        TCV_JapaNinja.SetNameAccount();
                         form.Show();
                     }
                 }
@@ -347,6 +353,7 @@ namespace TCV_JapaNinja.Forms.Login
             comboBox.SelectedIndex = (int)selectLangua - 1;
 
         }
+
         /// <summary>
         /// kiem tra thay doi ngon ngu
         /// </summary>
@@ -374,6 +381,7 @@ namespace TCV_JapaNinja.Forms.Login
             userName_tb.Focus();
             password_tb.Text = string.Empty;
         }
+
         private bool checkEye = false;
         /// <summary>
         /// hien thi password
@@ -402,6 +410,8 @@ namespace TCV_JapaNinja.Forms.Login
             }
         }
 
+        #region Event MouseMove
+
         private void FormLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             // update địa chỉ IP
@@ -410,8 +420,10 @@ namespace TCV_JapaNinja.Forms.Login
 
         private void minus_btn_Click(object sender, EventArgs e)
         {
-
+            this.WindowState = FormWindowState.Minimized;
         }
+
+        #endregion
 
         #region Movable Form
         /* Di chuyển form */

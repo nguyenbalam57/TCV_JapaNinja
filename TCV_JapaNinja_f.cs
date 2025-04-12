@@ -43,6 +43,7 @@ namespace TCV_JapaNinja
         public TCV_JapaNinja_form()
         {
             InitializeComponent();
+            //fixedDefaultForm();
             InitializeLoadForm();
 
             // Khởi tạo timer
@@ -63,8 +64,19 @@ namespace TCV_JapaNinja
         {
             FrmJPObj = this;
 
+            this.FormBorderStyle = FormBorderStyle.Sizable; // Đặt kiểu viền của form là Sizable
+
             //fullScreenForm();
 
+        }
+
+        private void fixedDefaultForm()
+        {
+            this.FormBorderStyle = FormBorderStyle.Sizable; // Đặt kiểu viền của form là FixedSingle
+            this.WindowState = FormWindowState.Normal; // Đặt trạng thái của form là bình thường
+            this.RecreateHandle(); // Tạo lại handle của form
+            this.Refresh(); // Làm mới form
+            
         }
 
         private void InitializeLoadForm()
@@ -256,6 +268,7 @@ namespace TCV_JapaNinja
             childForm.BringToFront();
             childForm.Show();
         }
+
         /// <summary>
         /// log out
         /// </summary>
@@ -478,13 +491,7 @@ namespace TCV_JapaNinja
         /// <param name="e"></param>
         private void MovableForm_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left) // Kiểm tra nếu nhấn chuột trái
-            {
-                isDragging = true; // Bắt đầu kéo
-                dragCursorPoint = Cursor.Position; // Lưu vị trí chuột
-                dragFormPoint = this.Location; // Lưu vị trí form
-            }
-                
+
         }
         /// <summary>
         /// Sự kiện di chuyển chuột để kéo form
@@ -493,12 +500,7 @@ namespace TCV_JapaNinja
         /// <param name="e"></param>
         private void MovableForm_MouseMove(object sender, MouseEventArgs e)
         {
-            // Nếu không phải đang kéo để thay đổi kích thước, thì di chuyển form
-            if (isDragging)
-            {
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-                this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
+
         }
         /// <summary>
         /// Sự kiện nhả chuột để dừng kéo
@@ -556,7 +558,7 @@ namespace TCV_JapaNinja
             locationStart = this.Location;
 
             // Thiết lập kích thước của form để chiếm toàn bộ màn hình
-            maxSize_icbtn.IconChar = IconChar.WindowRestore; // Đổi icon thành icon khôi phục
+            //maxSize_icbtn.IconChar = IconChar.WindowRestore; // Đổi icon thành icon khôi phục
             this.Location = new Point(0, 0); // Đặt vị trí ở góc trên bên trái
             this.StartPosition = FormStartPosition.CenterParent; // Đặt vị trí khởi đầu ở giữa màn hình
             this.Size = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height); // Chiếm toàn bộ màn hình trừ thanh tác vụ
@@ -569,7 +571,7 @@ namespace TCV_JapaNinja
         private void normalScreenForm()
         {
             // Trở lại trạng thái ban đầu
-            maxSize_icbtn.IconChar = IconChar.WindowMaximize; // Đổi icon thành icon tối đa
+            //maxSize_icbtn.IconChar = IconChar.WindowMaximize; // Đổi icon thành icon tối đa
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Size = sizeStart; // Kích thước mặc định của form

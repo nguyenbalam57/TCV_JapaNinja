@@ -251,6 +251,12 @@
     <Compile Include="Models\Account\CustomRolePer.cs" />
     <Compile Include="Models\Account\CustomUser.cs" />
     <Compile Include="src\CommonSections\Learnings.cs" />
+    <Compile Include="TCV_JapaNinja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TCV_JapaNinja.Designer.cs">
+      <DependentUpon>TCV_JapaNinja.cs</DependentUpon>
+    </Compile>
     <Compile Include="TCV_JapaNinja_f.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,6 +348,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Trial\FormTrial.resx">
       <DependentUpon>FormTrial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TCV_JapaNinja.resx">
+      <DependentUpon>TCV_JapaNinja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TCV_JapaNinja_f.resx">
       <DependentUpon>TCV_JapaNinja_f.cs</DependentUpon>
