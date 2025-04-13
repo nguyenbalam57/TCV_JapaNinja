@@ -43,6 +43,8 @@
             this.viewVocabulary_flpn.Name = "viewVocabulary_flpn";
             this.viewVocabulary_flpn.Size = new System.Drawing.Size(1067, 554);
             this.viewVocabulary_flpn.TabIndex = 0;
+            this.viewVocabulary_flpn.WrapContents = false;
+            this.viewVocabulary_flpn.SizeChanged += new System.EventHandler(this.viewVocabulary_flpn_SizeChanged);
             // 
             // FormLearning
             // 

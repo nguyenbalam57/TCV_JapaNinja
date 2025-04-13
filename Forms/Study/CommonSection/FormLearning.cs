@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCV_JapaNinja.Class;
+using TCV_JapaNinja.Models.DatabaseCustoms;
+using TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
@@ -48,21 +50,38 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 
         public void setDataLayoutKanji()
         {
-            if(leaningData == null || leaningData.Rows.Count == 0) return;
-            foreach (DataRow row in leaningData.Rows) 
-            {
-                UserControls.Studys.CommonSections.Learnings.LearningWordDisplay learningWordDisplay = new UserControls.Studys.CommonSections.Learnings.LearningWordDisplay();
-                //learningWordDisplay.Dock = DockStyle.Top;
-                learningWordDisplay.vocabulary_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Kanji]].ToString();
-                learningWordDisplay.phienAm_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_HanTu]].ToString();
-                learningWordDisplay.meaning_lb.Text = row[ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_TiengViet]].ToString();
-                //learningWordDisplay.Anchor = learningWordDisplay.Anchor | AnchorStyles.Left | AnchorStyles.Right;
-                learningWordDisplay.Size = new Size(viewVocabulary_flpn.Size.Width, learningWordDisplay.Size.Height);
+            if (leaningData == null || leaningData.Rows.Count == 0) return;
 
-                viewVocabulary_flpn.Controls.Add(learningWordDisplay);
+            viewVocabulary_flpn.Controls.Clear();
+
+            // Lấy dữ liệu từ bảng Answers
+            List<CustomAnswer> answers = Converters.Customs.CustomAnswerConverter.ConvertDataTableToCustomAnswerList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Answer]]);
+            // Lấy dữ liệu từ bảng image
+            List<CustomImage> images = Converters.Customs.CustomImageConverter.ConvertDataTableToCustomImageList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Images]]);
+            // Lấy dữ liệu từ bảng kanji
+            List<CustomKanji> kanjis = Converters.Customs.CustomKanjiConverter.ConvertDataTableToCustomKanjiList(leaningData, answers, images);
+
+            foreach (var kanji in kanjis)
+            {
+                var item = new WordDisplayKanji
+                {
+                    Data = kanji,
+                    Width = viewVocabulary_flpn.ClientSize.Width - 10,
+                };
+
+                viewVocabulary_flpn.Controls.Add(item);
             }
         }
 
-
+        private void viewVocabulary_flpn_SizeChanged(object sender, EventArgs e)
+        {
+            foreach (Control ctrl in viewVocabulary_flpn.Controls)
+            {
+                if (ctrl is WordDisplayKanji)
+                {
+                    ctrl.Width = viewVocabulary_flpn.ClientSize.Width;
+                }
+            }
+        }
     }
 }

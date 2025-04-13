@@ -88,10 +88,14 @@
     <Compile Include="Class\Colors.cs" />
     <Compile Include="Class\Admin_Management\ConnectedData.cs" />
     <Compile Include="Class\Admin_Management\Connecteds.cs" />
+    <Compile Include="Class\DataRowExtensions.cs" />
     <Compile Include="Class\Languages.cs" />
     <Compile Include="Class\UserDefineFunction.cs" />
     <Compile Include="Class\UserDefineFunctionBase.cs" />
     <Compile Include="Class\UserToolBoxs.cs" />
+    <Compile Include="Converters\Customs\CustomAnswerConverter.cs" />
+    <Compile Include="Converters\Customs\CustomImageConverter.cs" />
+    <Compile Include="Converters\Customs\CustomKanjiConverter.cs" />
     <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +254,9 @@
     </Compile>
     <Compile Include="Models\Account\CustomRolePer.cs" />
     <Compile Include="Models\Account\CustomUser.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomAnswer.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomImage.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomKanji.cs" />
     <Compile Include="src\CommonSections\Learnings.cs" />
     <Compile Include="TCV_JapaNinja.cs">
       <SubType>Form</SubType>
@@ -265,11 +272,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.cs">
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.Designer.cs">
-      <DependentUpon>LearningWordDisplay.cs</DependentUpon>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.Designer.cs">
+      <DependentUpon>WordDisplayKanji.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.resx">
       <DependentUpon>FormGroup.cs</DependentUpon>
@@ -364,8 +371,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UserControls\Studys\CommonSections\Learnings\LearningWordDisplay.resx">
-      <DependentUpon>LearningWordDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.resx">
+      <DependentUpon>WordDisplayKanji.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Fonts\Noto_Sans_JP\NotoSansJP-VariableFont_wght.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
