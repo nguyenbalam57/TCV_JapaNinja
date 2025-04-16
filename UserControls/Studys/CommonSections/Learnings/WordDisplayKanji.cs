@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCV_JapaNinja.Models.DatabaseCustoms;
 using System.Drawing.Printing;
+using TCV_JapaNinja.Animations;
 
 namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
 {
     public partial class WordDisplayKanji : UserControl
     {
+
+        private int kanjiId = -1;
+
         public WordDisplayKanji()
         {
             InitializeComponent();
@@ -130,9 +134,61 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
             detailPanel.Controls.Add(imagePanel);
 
             this.Controls.Add(detailPanel);
-
+            
+            InitHeartIcon();
         }
 
+        // Trái tim ghi nhớ
+        private PictureBox heartIcon;
+        private bool isMemorized = false; // Trạng thái đã ghi nhớ chưa
+        private MultiHeartAnimator heartAnimator;
+        /// <summary>
+        /// Khởi tạo trái tim
+        /// </summary>
+        private void InitHeartIcon()
+        {
+            heartIcon = new PictureBox()
+            {
+                Size = new Size(30,30),
+                Location = new Point(this.Width - 40, 10),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Cursor = Cursors.Hand,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                //Image = ...
+            };
+
+            //heartAnimator = new MultiHeartAnimator(this, Properties.Resources.heart_filled);
+
+            heartIcon.Click += HeartIcon_Click;
+            this.Controls.Add(heartIcon);
+        }
+
+        private void HeartIcon_Click(object sender, EventArgs e)
+        {
+            isMemorized = !isMemorized;
+
+            if(isMemorized)
+            {
+                // Đổi thành tim đỏ, tim đã ghi nhớ
+                //heartIcon.Image = ...
+                PlayHeartAnimation();
+            }
+            else
+            {
+                // Đổi thành tim trắng, tim chưa ghi nhớ
+                //heartIcon.Image = ...
+            }
+        }
+        /// <summary>
+        /// Hàm chạy animation
+        /// </summary>
+        private void PlayHeartAnimation()
+        {
+            Point heartStartPoint = heartIcon.PointToScreen(Point.Empty);
+            heartStartPoint = this.PointToClient(heartStartPoint);
+
+            heartAnimator.Start(heartStartPoint, heartCount: 6); // 6 trái tim bay lên
+        }
 
         #endregion
 
@@ -166,6 +222,12 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
         /// </summary>
         private void updateDissplay()
         {
+            // Lưu id của kanji để dễ xử lý data khi cần
+            // Nếu cần thì có thể lưu vào database
+            // hoặc lưu vào một biến tĩnh nào đó
+            // Hoặc lấy id để xác định từ đã thuộc
+            kanjiId = _data.Id;
+
             lblKanji.Text = _data.Kanji ?? "";
             lblHanTu.Text = _data.HanTu ?? "";
             lblTiengViet.Text = _data.TiengViet ?? "";
@@ -230,7 +292,7 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
                 currentTop = imagePanel.Bottom + 10; // Cập nhật vị trí cho panel hình ảnh
             }
 
-
+            //expnadedHeight = this.Height; // Cập nhật chiều cao mở rộng
         }
 
         /// <summary>
@@ -333,12 +395,12 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
             }
 
             this.Height = currentTop;
-            collapsedHeight = this.Height; // Cập nhật chiều cao mới
+            this.expnadedHeight = detailPanel.Bottom + 20; // Cập nhật chiều cao mới
         }
 
         #endregion
 
-        #region Animation Expand/Collaspe
+        #region Animation Expand/Collaspe detaiPanels
 
         private bool isExpanded = false;
         private Timer animationTimer = new Timer();
@@ -361,7 +423,13 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
         private void ToggleExpand(object sender, EventArgs e)
         {
             detailPanel.Visible = true; // Đảm bảo hiển thị panel
-            //expanding = !isExpanded; // Đảo trạng thái
+            
+            // Tính chiều cao mới của detailPanel (bao gồm label + ảnh)
+            int realContentHeight = detailPanel.Top + detailPanel.Height + 10;
+
+            // Cập nhật chiều cao mở rộng dựa trên nội dung thực tế
+            expnadedHeight = realContentHeight;
+
             animationTimer.Start();
         }
         /// <summary>
@@ -389,7 +457,7 @@ namespace TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings
                 this.Height += animationSpeed;
                 if (this.Height >= expnadedHeight)
                 {
-                    this.Height = expnadedHeight;
+                    //this.Height = expnadedHeight;
                     animationTimer.Stop();
                     isExpanded = true;
                 }

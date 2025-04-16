@@ -28,7 +28,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             {
                 var frmLearning = (FormLearning)Application.OpenForms["FormLearning"];
                 if (frmLearning == null) { frmLearning = new FormLearning(); }
-                frmLearning.getDataTableLeaningData(kanjiTable);
+                frmLearning.getDataTableLeaningData(kanjiTable, (int)ConnectedData.enLearningCategory.Kanji);
                 openChildForm(frmLearning);
             }
             else
@@ -48,7 +48,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 
             var frmLeaning = (FormLearning)Application.OpenForms["FormLearning"];
             if (frmLeaning == null) {frmLeaning = new FormLearning(); }
-            frmLeaning.getDataTableLeaningData(kanjiTable);
+            frmLeaning.getDataTableLeaningData(kanjiTable, (int)ConnectedData.enLearningCategory.Kanji);
 
             openChildForm(frmLeaning);
 

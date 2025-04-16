@@ -36,7 +36,10 @@ namespace TCV_JapaNinja.Class
         public static string pathImageEdit = "Images\\ButtonImages\\compose.png";
         public static string pathImageRead = "Images\\ButtonImages\\eyes.png";
         public static string pathImageDelete = "Images\\ButtonImages\\bin.png";
-
+        
+        /// <summary>
+        /// bảng cài đặt trong sql
+        /// </summary>
         public enum enTables
         {
             Table_None,
@@ -118,6 +121,19 @@ namespace TCV_JapaNinja.Class
             { "regiterData","Regiter","7","Thêm vào" },//Data_Regiter,
             { "cancelData","Cancel","8","Hủy bỏ" }//Data_Cancel,
         };
+
+        /// <summary>
+        /// Phân loại load dữ liệu
+        /// </summary>
+        public enum enLearningCategory
+        {
+            None = 0,
+            Vocabulary,
+            Kanji,
+            Grammar,
+            Technical,
+            LearningCategory_
+        }
 
         // tao dataset de add table vao dataset
         public static DataSet dataSet;

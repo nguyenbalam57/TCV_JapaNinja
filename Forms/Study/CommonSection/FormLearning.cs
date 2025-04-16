@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using TCV_JapaNinja.Class;
 using TCV_JapaNinja.Models.DatabaseCustoms;
 using TCV_JapaNinja.UserControls.Studys.CommonSections.Learnings;
+using static TCV_JapaNinja.Class.ConnectedData;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
@@ -32,44 +33,106 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
          * 
          */
 
-        DataTable leaningData;
-
         public FormLearning()
         {
             InitializeComponent();
         }
 
-        public void getDataTableLeaningData(DataTable dataTable)
+
+        public void getDataTableLeaningData(DataTable dataTable, int leaningCatego)
         {
-            leaningData = new DataTable();
-            leaningData = dataTable;
             //viewLeaning_dgv.DataSource = leaningData;
 
-            setDataLayoutKanji();
+            enLearningCategory enLearning = (enLearningCategory)leaningCatego;
+
+            switch (enLearning)
+            {
+                case enLearningCategory.Kanji:
+                    LoadKanjiDisplay(dataTable);
+                    break;
+                case enLearningCategory.Vocabulary:
+                    LoadVocabularyDisplay(dataTable);
+                    break;
+                case enLearningCategory.Grammar:
+                    LoadGrammarDisplay(dataTable);
+                    break;
+                case enLearningCategory.Technical:
+                    LoadTechnicalDisplay(dataTable);
+                    break;
+                default:
+                    break;
+            }    
+
+            
         }
 
-        public void setDataLayoutKanji()
+        public void LoadKanjiDisplay( DataTable dataTable )
         {
-            if (leaningData == null || leaningData.Rows.Count == 0) return;
-
-            viewVocabulary_flpn.Controls.Clear();
-
-            // Lấy dữ liệu từ bảng Answers
-            List<CustomAnswer> answers = Converters.Customs.CustomAnswerConverter.ConvertDataTableToCustomAnswerList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Answer]]);
-            // Lấy dữ liệu từ bảng image
-            List<CustomImage> images = Converters.Customs.CustomImageConverter.ConvertDataTableToCustomImageList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Images]]);
-            // Lấy dữ liệu từ bảng kanji
-            List<CustomKanji> kanjis = Converters.Customs.CustomKanjiConverter.ConvertDataTableToCustomKanjiList(leaningData, answers, images);
-
-            foreach (var kanji in kanjis)
+            if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Kanji, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
-                var item = new WordDisplayKanji
-                {
-                    Data = kanji,
-                    Width = viewVocabulary_flpn.ClientSize.Width - 10,
-                };
+                if (dataTable == null || dataTable.Rows.Count == 0) return;
 
-                viewVocabulary_flpn.Controls.Add(item);
+                viewVocabulary_flpn.Controls.Clear();
+
+                // Lấy dữ liệu từ bảng Answers
+                List<CustomAnswer> answers = Converters.Customs.CustomAnswerConverter.ConvertDataTableToCustomAnswerList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Answer]]);
+                // Lấy dữ liệu từ bảng image
+                List<CustomImage> images = Converters.Customs.CustomImageConverter.ConvertDataTableToCustomImageList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Images]]);
+                // Lấy dữ liệu từ bảng kanji
+                List<CustomKanji> kanjis = Converters.Customs.CustomKanjiConverter.ConvertDataTableToCustomKanjiList(dataTable, answers, images);
+
+                foreach (var kanji in kanjis)
+                {
+                    var item = new WordDisplayKanji
+                    {
+                        Data = kanji,
+                        Width = viewVocabulary_flpn.ClientSize.Width - 10,
+                    };
+
+                    viewVocabulary_flpn.Controls.Add(item);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+        }
+
+        public void LoadVocabularyDisplay(DataTable dataTable)
+        {
+            if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Voc, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+
+        public void LoadGrammarDisplay(DataTable dataTable)
+        {
+            if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Grammar, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void LoadTechnicalDisplay(DataTable dataTable)
+        {
+            if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Technical, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
