@@ -100,12 +100,26 @@
     <Compile Include="Class\Admin_Management\Connecteds.cs" />
     <Compile Include="Class\DataRowExtensions.cs" />
     <Compile Include="Class\Languages.cs" />
+    <Compile Include="Class\ManagerData\DataLoader.cs" />
     <Compile Include="Class\UserDefineFunction.cs" />
     <Compile Include="Class\UserDefineFunctionBase.cs" />
     <Compile Include="Class\UserToolBoxs.cs" />
     <Compile Include="Converters\Customs\CustomAnswerConverter.cs" />
+    <Compile Include="Converters\Customs\CustomCurriculumConverter.cs" />
+    <Compile Include="Converters\Customs\CustomGrammarConvert.cs" />
+    <Compile Include="Converters\Customs\CustomGroupConverter.cs" />
+    <Compile Include="Converters\Customs\CustomHistoryGKTVConverter.cs" />
     <Compile Include="Converters\Customs\CustomImageConverter.cs" />
     <Compile Include="Converters\Customs\CustomKanjiConverter.cs" />
+    <Compile Include="Converters\Customs\CustomLevelConverter.cs" />
+    <Compile Include="Converters\Customs\CustomParentChildConverter.cs" />
+    <Compile Include="Converters\Customs\CustomPositionConverter.cs" />
+    <Compile Include="Converters\Customs\CustomRoleConverter.cs" />
+    <Compile Include="Converters\Customs\CustomTechnicalConverter.cs" />
+    <Compile Include="Converters\Customs\CustomTypeVocaConverter.cs" />
+    <Compile Include="Converters\Customs\CustomUserConverter.cs" />
+    <Compile Include="Converters\Customs\CustomUserRoleConverter.cs" />
+    <Compile Include="Converters\Customs\CustomVocabularyConverter.cs" />
     <Compile Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,10 +277,22 @@
       <DependentUpon>FormTrial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\CustomRolePer.cs" />
-    <Compile Include="Models\Account\CustomUser.cs" />
     <Compile Include="Models\DatabaseCustoms\CustomAnswer.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomCurriculum.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomGrammar.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomGroup.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomHistoryGKTV.cs" />
     <Compile Include="Models\DatabaseCustoms\CustomImage.cs" />
     <Compile Include="Models\DatabaseCustoms\CustomKanji.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomLevel.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomParentChild.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomPosition.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomRole.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomTechnical.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomTypeVoca.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomUser.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomUserRole.cs" />
+    <Compile Include="Models\DatabaseCustoms\CustomVocabulary.cs" />
     <Compile Include="src\CommonSections\Learnings.cs" />
     <Compile Include="TCV_JapaNinja.cs">
       <SubType>Form</SubType>
@@ -282,11 +308,29 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplatTechnical.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplatTechnical.Designer.cs">
+      <DependentUpon>WordDisplatTechnical.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayGrammar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayGrammar.Designer.cs">
+      <DependentUpon>WordDisplayGrammar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.Designer.cs">
       <DependentUpon>WordDisplayKanji.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayVocabulary.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Studys\CommonSections\Learnings\WordDisplayVocabulary.Designer.cs">
+      <DependentUpon>WordDisplayVocabulary.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\Admin_ManagementForms\AccountForms\FormGroup.resx">
       <DependentUpon>FormGroup.cs</DependentUpon>
@@ -381,6 +425,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\Studys\CommonSections\Learnings\WordDisplayGrammar.resx">
+      <DependentUpon>WordDisplayGrammar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Studys\CommonSections\Learnings\WordDisplayKanji.resx">
       <DependentUpon>WordDisplayKanji.cs</DependentUpon>
     </EmbeddedResource>

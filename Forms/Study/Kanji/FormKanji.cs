@@ -8,31 +8,55 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCV_JapaNinja.Class;
+using TCV_JapaNinja.Class.ManagerData;
+using TCV_JapaNinja.Models.DatabaseCustoms;
+using static TCV_JapaNinja.Class.ConnectedData;
 
 namespace TCV_JapaNinja.Forms.Study.Kanji
 {
     public partial class FormKanji : Form
     {
-        DataTable kanjiTable;
+        private List<CustomKanji> Kanjis;
+        private Button ActiveLevel;
+        private Button ActiveLesson;
+
+        /*
+         * Load data kanji theo level, chưa load theo chương trình học
+         * Nếu mục level để trống sẽ load theo Other or ...
+         */
 
         public FormKanji()
         {
             InitializeComponent();
-            DisplayLevel();
+            DisplayLevelKanji();
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu kanji từ database
+        /// </summary>
+        /// <returns></returns>
+        private List<CustomKanji> GetDataKanjis()
+        {
+            return dataLoader.LoadKanjisList();
         }
         /// <summary>
         /// Hiển thị nút nhấn level
+        /// Lấy level từ database Kanji, sắp xếp theo ID từ nhỏ đến lớn
         /// </summary>
-        private void DisplayLevel()
+        private void DisplayLevelKanji()
         {
-            DataTable levelTable = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Level]];
+            level_flpn.Controls.Clear();
+            // Lấy levels từ kanjis, sau đó chỉ lọc không trùng level.
+            List<CustomLevel> levels = GetDataKanjis().Where(o => o.Level != null && o.IsActive).Select(o => o.Level).Distinct().ToList();
+            // Sắp xếp danh sách level theo ID từ nhỏ đến lớn
+            List<CustomLevel> sortedLevels = levels.OrderBy(level => level.Id).ToList();
             // Lấy level từ danh sách database
-            foreach(DataRow row in levelTable.Rows)
+            foreach (CustomLevel level in sortedLevels)
             {
                 // Add button vào flowlayoutpanel có name = name, tag = ID
-                int levelId = Convert.ToInt32(row[ConnectedData.levelCol[(int)ConnectedData.enLevelCol.LevelCol_Id]]);
-                string levelName = row[ConnectedData.levelCol[(int)ConnectedData.enLevelCol.LevelCol_Name]].ToString();
-                Button button = UserToolBoxs.createButton(level_flpn, levelId, levelName);
+                string levelName = level.Name.ToString();
+                Button button = UserToolBoxs.createButton(level_flpn, levelName);
+                button.Tag = level;
                 button.Click += LevelButton_Click;
             }
         }
@@ -40,51 +64,45 @@ namespace TCV_JapaNinja.Forms.Study.Kanji
         private void LevelButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
-            int levelId = (int)button.Tag;
-            FilterKanjiDataByLevel(levelId);
+            ActiveLevel = button;
+            CustomLevel level = (CustomLevel)button.Tag;
+            FilterKanjiDataByLevel();
         }
         /// <summary>
         /// Phương thức này sẽ lọc dữ liệu Kanji theo cấp đỗ đã chọn, trích xuất các số bài học duy nhất, 
-        /// sắp xếp chúngs theo thứ tự tăng dần, sau đó gọi -> để thực hiện.
+        /// sắp xếp chúng theo thứ tự tăng dần, sau đó gọi -> để thực hiện.
         /// </summary>
         /// <param name="levelId"></param>
-        private void FilterKanjiDataByLevel(int levelId)
+        private void FilterKanjiDataByLevel()
         {
-            // Get data kanji từ bảng table
-            DataTable kanjis = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Kanji]];
-            DataView dataView = new DataView(kanjis);
-            dataView.RowFilter = $"{ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LevelId]} = {levelId}";
-
-            if(dataView.Count > 0)
+            if (ActiveLevel == null) return; // Nếu không có level thì không làm gì cả
+            // Get data kanji từ bảng table, thứ tự tăng dần
+            CustomLevel level = (CustomLevel)ActiveLevel.Tag;
+            List<int> lessonNumbers = GetDataKanjis().Where(o => o.Level.Id == level.Id && o.IsActive == true).Select(o => o.LessonNumber).Distinct().OrderBy(o => o).ToList();
+            // kiểm tra xem có dữ liệu hay không
+            if (lessonNumbers.Count > 0)
             {
-                // Lấy lessonNumber (Bài) theo thứ tự tăng dần
-                var uniqueLessons = dataView.ToTable(true, $"{ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LessonNumber]}")
-                                            .AsEnumerable()
-                                            .Select(row => Convert.ToInt32(row[$"{ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LessonNumber]}"]))
-                                            .Distinct()
-                                            .OrderBy(lessonNumber => lessonNumber) // sắp xếp theo thứ tự tăng dần
-                                            .ToList();
-
-                DisplayLessonButtons(uniqueLessons);
+                DisplayLessonButtons(lessonNumbers);
             }
             else
             {
                 // xử lý trường hợp không có dữ liệu
                 DisplayLessonButtons(new List<int>());
             }
-            
+
         }
         /// <summary>
         /// hiển thị button số lượng bài
         /// </summary>
-        /// <param name="lessons"></param>
-        private void DisplayLessonButtons(List<int> lessons)
+        /// <param name="lessonNumbers"></param>
+        private void DisplayLessonButtons(List<int> lessonNumbers)
         {
             lessonNumber_flpn.Controls.Clear();
-
-            foreach (int lesson in lessons)
+            // Nếu không có bài nào thì không cần hiển thị
+            foreach (int lesson in lessonNumbers)
             {
-                Button button = UserToolBoxs.createButton(lessonNumber_flpn, lesson ,Languages.lableName[(int)Languages.enLableName.LabelName_Lesson, (int)Languages.LanguageIndex] + " "+ lesson.ToString());
+                Button button = UserToolBoxs.createButton(lessonNumber_flpn, Languages.lableName[(int)Languages.enLableName.LabelName_Lesson, (int)Languages.LanguageIndex] + " " + lesson.ToString());
+                button.Tag = lesson;
                 button.Click += LessonButton_Click;
             }
         }
@@ -98,8 +116,8 @@ namespace TCV_JapaNinja.Forms.Study.Kanji
             // Handle lesson button click event
             Button button = sender as Button;
             int lessonNumber = (int)button.Tag;
-
-            DisplayKanijComonSection(FilterKanjiDataByLessonNumber(lessonNumber));
+            ActiveLesson = button;
+            DisplayKanijComonSection(FilterKanjiDataByLessonNumber());
         }
 
         /// <summary>
@@ -107,29 +125,38 @@ namespace TCV_JapaNinja.Forms.Study.Kanji
         /// </summary>
         /// <param name="lessonNumber"></param>
         /// <returns></returns>
-        private DataTable FilterKanjiDataByLessonNumber(int lessonNumber)
+        private List<CustomKanji> FilterKanjiDataByLessonNumber()
         {
-            kanjiTable = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Kanji]];
-            DataView dataView = new DataView(kanjiTable);
-            dataView.RowFilter = $"{ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LessonNumber]} = {lessonNumber}";
+            List<CustomKanji> kanjis = new List<CustomKanji>();
 
-            return dataView.ToTable();
+            if(ActiveLevel != null && ActiveLesson != null)
+            {
+                CustomLevel level = (CustomLevel)ActiveLevel.Tag;
+                int lessonNumber = (int)ActiveLesson.Tag;
+
+                kanjis = GetDataKanjis().Where(o => o.Level.Id == level.Id && o.LessonNumber == lessonNumber).ToList();
+            }
+
+            return kanjis;
         }
-
-        private void DisplayKanijComonSection(DataTable kanjiDatas)
+        /// <summary>
+        /// Hiển thị form con cho phần học kanji
+        /// </summary>
+        /// <param name="kanjiDatas"></param>
+        private void DisplayKanijComonSection(List<CustomKanji> kanjis)
         {
             // Nếu được cấp quyền sẽ được học từ kanji
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Kanji, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
                 var frmCommonSection = (CommonSection.FormCommonSection)Application.OpenForms["FormCommonSection"];
                 if (frmCommonSection == null) { frmCommonSection = new CommonSection.FormCommonSection(); }
-                frmCommonSection.DisplayKanjiData(kanjiDatas);
+                frmCommonSection.DisplayCommonSectionData(kanjis, (int)enLearningCategory.Kanji);
                 openChildForm(frmCommonSection);
-            }    
+            }
             else
             {
                 MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }    
+            }
         }
 
         /// <summary>

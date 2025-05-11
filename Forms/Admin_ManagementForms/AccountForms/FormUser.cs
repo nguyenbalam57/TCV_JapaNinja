@@ -44,7 +44,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management
         /// </summary>
         private void InitializeRoleCheckBoxs()
         {
-            DataTable dataTable = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Role]];
+            DataTable dataTable = ConnectedData.dataLoader.LoadRoles();
             DataView data = new DataView(dataTable);
             data.RowFilter = $"{ConnectedData.roleCol[(int)ConnectedData.enRoleCol.RoleCol_IsActive]} = {true}";
 
@@ -202,7 +202,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management
         {
             try
             {
-                DataTable groupT = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Group]];
+                DataTable groupT = ConnectedData.dataLoader.LoadGroups();
                 DataView dataView = new DataView(groupT);
                 dataView.RowFilter = $"{ConnectedData.groupCol[(int)ConnectedData.enGroupCol.GroupCol_IsActive]} = {ConnectedData.IsActive}";
                 groupT = dataView.ToTable();
@@ -228,7 +228,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management
         {
             try
             {
-                DataTable groupT = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Position]];
+                DataTable groupT = ConnectedData.dataLoader.LoadPositions();
                 DataView dataView = new DataView(groupT);
                 dataView.RowFilter = $"{ConnectedData.positionCol[(int)ConnectedData.enPositionCol.PositionCol_IsActive]} = {ConnectedData.IsActive}";
                 groupT = dataView.ToTable();
@@ -528,7 +528,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management
                         {
                             command.Parameters.AddWithValue($"@UserId", userId);
                             command.Parameters.AddWithValue($"@RoleId", roleId);
-                            command.Parameters.AddWithValue($"@UserIdEdit", Class.Accounts.UserLogin.UserId);
+                            command.Parameters.AddWithValue($"@UserIdEdit", Class.Accounts.UserLogin.Id);
                             command.Parameters.AddWithValue($"@CreatedDate", DateTime.Now);
                             command.ExecuteNonQuery();
                         }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TCV_JapaNinja.Models.DatabaseCustoms
 {
+    /// <summary>
+    /// Lớp đại diện cho một từ kanji trong hệ thống.
+    /// </summary>
     public class CustomKanji
     {
         public int Id { get; set; } // Kanji ID
@@ -23,11 +26,13 @@ namespace TCV_JapaNinja.Models.DatabaseCustoms
         public DateTime UpdatedDate { get; set; } // Ngày update từ hán tự
         public bool IsActive { get; set; } // Trạng thái hoạt động
         public List<CustomAnswer> Answers { get; set; } // Danh sách câu trả lời
-        public int LevelId { get; set; } // ID cấp độ
+        public CustomLevel Level { get; set; } // Cấp độ
         public int UserId { get; set; } // ID người dùng
-        public int CurriculumId { get; set; } // ID chương trình học
-
+        public CustomCurriculum Curriculum { get; set; } // Chương trình học
         public List<CustomImage> Images { get; set; } // Danh sách ảnh liên quan đến kanji, get thêm khi select từ dữ liệu
+
+        // Bổ sung thêm kanji đã nhớ
+        public CustomHistoryGKTV HistoryKanji { get; set; } // Lịch sử kanji đã nhớ
 
         public CustomKanji()
         {
@@ -46,10 +51,11 @@ namespace TCV_JapaNinja.Models.DatabaseCustoms
             UpdatedDate = DateTime.Now;
             IsActive = true;
             Answers = new List<CustomAnswer>();
-            LevelId = -1;
+            Level = new CustomLevel();
             UserId = -1;
-            CurriculumId = -1;
+            Curriculum = new CustomCurriculum();
             Images = new List<CustomImage>();
+            HistoryKanji = new CustomHistoryGKTV();
         }
 
         public CustomKanji(int id, 
@@ -67,10 +73,11 @@ namespace TCV_JapaNinja.Models.DatabaseCustoms
             DateTime updatedDate, 
             bool isActive, 
             List<CustomAnswer> answers, 
-            int levelId, 
+            CustomLevel levelId, 
             int userId, 
-            int curriculumId, 
-            List<CustomImage> images)
+            CustomCurriculum curriculumId, 
+            List<CustomImage> images,
+            CustomHistoryGKTV historyKanji)
         {
             Id = id;
             LessonNumber = lessonNumber;
@@ -87,10 +94,11 @@ namespace TCV_JapaNinja.Models.DatabaseCustoms
             this.UpdatedDate = updatedDate;
             IsActive = isActive;
             Answers = answers;
-            LevelId = levelId;
+            Level = levelId;
             UserId = userId;
-            CurriculumId = curriculumId;
+            Curriculum = curriculumId;
             Images = images;
+            HistoryKanji = historyKanji;
         }
 
         public CustomKanji(CustomKanji customKanji)
@@ -106,14 +114,15 @@ namespace TCV_JapaNinja.Models.DatabaseCustoms
             Example = customKanji.Example;
             Note = customKanji.Note;
             Strokes = customKanji.Strokes;
-            this.CreatedDate = customKanji.CreatedDate;
-            this.UpdatedDate = customKanji.UpdatedDate;
+            CreatedDate = customKanji.CreatedDate;
+            UpdatedDate = customKanji.UpdatedDate;
             IsActive = customKanji.IsActive;
             Answers = customKanji.Answers;
-            LevelId = customKanji.LevelId;
+            Level = customKanji.Level;
             UserId = customKanji.UserId;
-            CurriculumId = customKanji.CurriculumId;
-            Images = new List<CustomImage>(customKanji.Images);
+            Curriculum = customKanji.Curriculum;
+            Images = customKanji.Images;
+            HistoryKanji = customKanji.HistoryKanji;
         }
 
     }

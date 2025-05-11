@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace TCV_JapaNinja.Models.DatabaseCustoms
 {
+    /// <summary>
+    /// Lớp đại diện cho một câu trả lời tùy chỉnh trong hệ thống.
+    /// </summary>
     public class CustomAnswer
     {
         public int Id { get; set; } // ID câu trả lời

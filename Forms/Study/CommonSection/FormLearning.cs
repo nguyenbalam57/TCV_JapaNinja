@@ -33,53 +33,55 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
          * 
          */
 
+        /*
+         * Phần đang còn làm dở là nút heart (trái tim) chưa hoàn thành, có animation của heart và chỉ cần tải ảnh và add vào.
+         */
+
         public FormLearning()
         {
             InitializeComponent();
         }
 
-
-        public void getDataTableLeaningData(DataTable dataTable, int leaningCatego)
+        /// <summary>
+        /// Lấy dữ liệu từ database về và hiển thị lên form
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="datas"></param>
+        /// <param name="leaningCatego"></param>
+        public void GetDataTableLeaningData<T>(List<T> datas, int leaningCatego) where T : class
         {
-            //viewLeaning_dgv.DataSource = leaningData;
 
             enLearningCategory enLearning = (enLearningCategory)leaningCatego;
 
             switch (enLearning)
             {
                 case enLearningCategory.Kanji:
-                    LoadKanjiDisplay(dataTable);
+                    LoadKanjiDisplay(datas as List<CustomKanji>);
                     break;
                 case enLearningCategory.Vocabulary:
-                    LoadVocabularyDisplay(dataTable);
+                    LoadVocabularyDisplay(datas as List<CustomVocabulary>);
                     break;
                 case enLearningCategory.Grammar:
-                    LoadGrammarDisplay(dataTable);
+                    LoadGrammarDisplay(datas as List<CustomGrammar>);
                     break;
                 case enLearningCategory.Technical:
-                    LoadTechnicalDisplay(dataTable);
+                    LoadTechnicalDisplay(datas as List<CustomTechnical>);
                     break;
                 default:
                     break;
             }    
-
-            
         }
-
-        public void LoadKanjiDisplay( DataTable dataTable )
+        /// <summary>
+        /// Load danh sách kanji vào form
+        /// </summary>
+        /// <param name="kanjis"></param>
+        public void LoadKanjiDisplay( List<CustomKanji> kanjis )
         {
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Kanji, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
-                if (dataTable == null || dataTable.Rows.Count == 0) return;
+                if (kanjis == null || kanjis.Count() <= 0 ) return;
 
                 viewVocabulary_flpn.Controls.Clear();
-
-                // Lấy dữ liệu từ bảng Answers
-                List<CustomAnswer> answers = Converters.Customs.CustomAnswerConverter.ConvertDataTableToCustomAnswerList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Answer]]);
-                // Lấy dữ liệu từ bảng image
-                List<CustomImage> images = Converters.Customs.CustomImageConverter.ConvertDataTableToCustomImageList(ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Images]]);
-                // Lấy dữ liệu từ bảng kanji
-                List<CustomKanji> kanjis = Converters.Customs.CustomKanjiConverter.ConvertDataTableToCustomKanjiList(dataTable, answers, images);
 
                 foreach (var kanji in kanjis)
                 {
@@ -98,8 +100,11 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             }
             
         }
-
-        public void LoadVocabularyDisplay(DataTable dataTable)
+        /// <summary>
+        /// Load danh sách từ vựng vào form
+        /// </summary>
+        /// <param name="vocabularys"></param>
+        public void LoadVocabularyDisplay(List<CustomVocabulary> vocabularys)
         {
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Voc, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
@@ -111,8 +116,11 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             }
 
         }
-
-        public void LoadGrammarDisplay(DataTable dataTable)
+        /// <summary>
+        /// Load danh sách ngữ pháp vào form
+        /// </summary>
+        /// <param name="grammars"></param>
+        public void LoadGrammarDisplay(List<CustomGrammar> grammars)
         {
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Grammar, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
@@ -123,8 +131,11 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
                 MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        public void LoadTechnicalDisplay(DataTable dataTable)
+        /// <summary>
+        /// Load danh sách từ kỹ thuật vào form
+        /// </summary>
+        /// <param name="technicals"></param>
+        public void LoadTechnicalDisplay(List<CustomTechnical> technicals)
         {
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Technical, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {

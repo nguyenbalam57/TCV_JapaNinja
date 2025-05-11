@@ -10,7 +10,7 @@ namespace TCV_JapaNinja.Class
 {
     internal class UserToolBoxs
     {
-        public static Button createButton(FlowLayoutPanel layoutPanel, int id, string name )
+        public static Button createButton(FlowLayoutPanel layoutPanel, string name )
         {
             Button button = new Button();
             button.Text = name;
@@ -18,7 +18,6 @@ namespace TCV_JapaNinja.Class
             button.BackColor = ColorTranslator.FromHtml(Class.Colors.Color[(int)Class.Colors.enColors.Color_BackgroundMenu, (int)Class.Colors.ModeColorsIndex]);
             button.FlatStyle = FlatStyle.Flat;
             button.FlatAppearance.BorderSize = 0;
-            button.Tag = id; // store the id in the button's tag property
             layoutPanel.Controls.Add(button);
 
             return button;

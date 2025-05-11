@@ -98,7 +98,6 @@
             this.grammar_btn.TabIndex = 1;
             this.grammar_btn.Text = "Import File";
             this.grammar_btn.UseVisualStyleBackColor = true;
-            this.grammar_btn.Click += new System.EventHandler(this.grammar_btn_Click);
             // 
             // panel1
             // 
@@ -196,7 +195,6 @@
             this.vocabulary_btn.TabIndex = 1;
             this.vocabulary_btn.Text = "Import File";
             this.vocabulary_btn.UseVisualStyleBackColor = true;
-            this.vocabulary_btn.Click += new System.EventHandler(this.vocabulary_btn_Click);
             // 
             // tabPage3
             // 
@@ -254,7 +252,6 @@
             this.kanji_btn.TabIndex = 1;
             this.kanji_btn.Text = "Import File";
             this.kanji_btn.UseVisualStyleBackColor = true;
-            this.kanji_btn.Click += new System.EventHandler(this.kanji_btn_Click);
             // 
             // tabPage4
             // 
@@ -312,7 +309,6 @@
             this.technical_btn.TabIndex = 1;
             this.technical_btn.Text = "Import File";
             this.technical_btn.UseVisualStyleBackColor = true;
-            this.technical_btn.Click += new System.EventHandler(this.technical_btn_Click);
             // 
             // label1
             // 

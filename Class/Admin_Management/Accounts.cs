@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using TCV_JapaNinja.Models;
 using TCV_JapaNinja.Models.Account;
+using TCV_JapaNinja.Models.DatabaseCustoms;
 
 namespace TCV_JapaNinja.Class
 {
@@ -117,10 +118,10 @@ namespace TCV_JapaNinja.Class
         {
             // Trước khi clear lịch sử đăng nhập
             // Clear trạng thái đăng nhập
-            if(UserLogin.UserId >= 0)
+            if(UserLogin.Id >= 0)
             {
                 // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
-                updateIPAdress(UserLogin.UserId, string.Empty);
+                updateIPAdress(UserLogin.Id, string.Empty);
             }
             // Clear user đăng nhập
             UserLogin = new CustomUser();
@@ -129,7 +130,7 @@ namespace TCV_JapaNinja.Class
         // Ghi Name vào để hiển thị
         public static void vdScreenNameAccount(System.Windows.Forms.Label namelabel)
         {
-            namelabel.Text = UserLogin.UserName;
+            namelabel.Text = UserLogin.Name;
         }
 
         /// <summary>

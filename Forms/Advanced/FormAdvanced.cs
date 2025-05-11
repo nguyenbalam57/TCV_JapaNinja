@@ -17,7 +17,6 @@ namespace TCV_JapaNinja.Forms.Advanced
             InitializeComponent();
         }
         private int numLevel = 5;
-        private int numAdvanced = 4;
 
         private string[] advanced_Str = new string[] { "Ngay Thang Nam", "Gio Phut", "So Tien", "So Dem" };
 

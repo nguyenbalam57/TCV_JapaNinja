@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using TCV_JapaNinja.Class;
+using TCV_JapaNinja.Class.ManagerData;
 using TCV_JapaNinja.Models.Account;
 
 namespace TCV_JapaNinja.Forms.Login
@@ -24,6 +25,7 @@ namespace TCV_JapaNinja.Forms.Login
             setColorsAndName();
             vdLanguageListCombobox(language_cbb, Languages.LanguageIndex);
             clearAccout();
+
         }
 
         /// <summary>
@@ -139,11 +141,14 @@ namespace TCV_JapaNinja.Forms.Login
             loadingProgressBar.Style = ProgressBarStyle.Marquee;
 
             // Kiểm tra xem dataset đã được load hay chưa, nếu chưa thì thực hiện load data all.
-            if (ConnectedData.dataSet == null)
+            if (ConnectedData.dataLoader.GetLoadedTable(ConnectedData.enTables.Table_User) == null)
             {
                 Task.Run(() =>
                 {
-                    ConnectedData.LoadDataAllSQL();
+                    // Tải dữ liệu từ cơ sở dữ liệu
+                    ConnectedData.dataLoader.LoadUsers();
+                    ConnectedData.dataLoader.LoadUserRoles();
+                    ConnectedData.dataLoader.LoadRoles();
 
                     // Sử dụng Invoke để cập nhật giao diện người dùng từ luồng khác
                     this.Invoke((MethodInvoker)delegate
@@ -169,8 +174,8 @@ namespace TCV_JapaNinja.Forms.Login
         {
             try
             {
-                // lấy bảng user từ Dataset
-                DataTable userData = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_User]];
+                // lấy bảng user từ DataLoader
+                DataTable userData = ConnectedData.dataLoader.LoadUsers();
                 // Tìm hàng khớp với employeeCode và password
                 DataView dataView = new DataView(userData);
                 dataView.RowFilter = $"{ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_EmployeeCode]} = '{name}' AND {ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_Pasword]} = '{pass}'";
@@ -180,10 +185,10 @@ namespace TCV_JapaNinja.Forms.Login
                     // Lấy userId, employeeCode và userName từ hàng đầu tiên tìm thấy
                     DataRow row = dataView[0].Row;
 
-                    Accounts.UserLogin.UserId = (int)row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_Id]];
-                    Accounts.UserLogin.EmployerCode = row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_EmployeeCode]].ToString();
-                    Accounts.UserLogin.UserName = row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_Name]].ToString();
-                    Accounts.UserLogin.Roles = getUserRolePer(Accounts.UserLogin.UserId);
+                    Accounts.UserLogin.Id = (int)row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_Id]];
+                    Accounts.UserLogin.EmployeeCode = row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_EmployeeCode]].ToString();
+                    Accounts.UserLogin.Name = row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_Name]].ToString();
+                    Accounts.UserLogin.Roles = getUserRolePer(Accounts.UserLogin.Id);
 
                     if (!string.IsNullOrWhiteSpace(row[ConnectedData.userCol[(int)ConnectedData.enUserCol.UserCol_IPAddress]].ToString()))
                     {
@@ -201,7 +206,7 @@ namespace TCV_JapaNinja.Forms.Login
                     }
 
                     // update địa chỉ IP
-                    Accounts.updateIPAdress(Accounts.UserLogin.UserId, Accounts.GetIPAddress());
+                    Accounts.updateIPAdress(Accounts.UserLogin.Id, Accounts.GetIPAddress());
 
                     /* clear ve textbox */
                     clearAccout();
@@ -247,7 +252,7 @@ namespace TCV_JapaNinja.Forms.Login
             try
             {
                 // Đọc toàn bộ RoleId liên quan đến userId trong table UserRole
-                DataTable userRoleTable = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_UserRole]];
+                DataTable userRoleTable = ConnectedData.dataLoader.LoadUserRoles();
                 DataView userRoleView = new DataView(userRoleTable);
                 userRoleView.RowFilter = $"{ConnectedData.userRoleCol[(int)ConnectedData.enUserRoleCol.UserRoleCol_UserId]} = {userId}";
 
@@ -256,7 +261,7 @@ namespace TCV_JapaNinja.Forms.Login
                     int roleId = (int)userRoleRow[ConnectedData.userRoleCol[(int)ConnectedData.enUserRoleCol.UserRoleCol_RoleId]];
 
                     // Lấy RoleId để lấy tất cả những Role liên quan ở trong table Role
-                    DataTable roleTable = ConnectedData.dataSet.Tables[ConnectedData.tableNames[(int)ConnectedData.enTables.Table_Role]];
+                    DataTable roleTable = ConnectedData.dataLoader.LoadRoles();
                     DataView roleView = new DataView(roleTable);
                     roleView.RowFilter = $"{ConnectedData.roleCol[(int)ConnectedData.enRoleCol.RoleCol_Id]} = {roleId}";
 
@@ -415,7 +420,7 @@ namespace TCV_JapaNinja.Forms.Login
         private void FormLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             // update địa chỉ IP
-            Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
+            Accounts.updateIPAdress(Accounts.UserLogin.Id, string.Empty);
         }
 
         private void minus_btn_Click(object sender, EventArgs e)

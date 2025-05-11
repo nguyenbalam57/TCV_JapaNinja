@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
+using TCV_JapaNinja.Class.ManagerData;
 using static TCV_JapaNinja.Class.Languages;
 
 namespace TCV_JapaNinja.Class
@@ -19,7 +20,7 @@ namespace TCV_JapaNinja.Class
         /* data sql server */
         // lấy đường dẫn ở project, no bin, no debug
         public static string pathProject = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
-        public static string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={pathProject}\\databases\\JapaNinja_Database.mdf;Integrated Security=True";
+        public static readonly string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={pathProject}\\databases\\JapaNinja_Database.mdf;Integrated Security=True";
         //public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\TCV220027\\Desktop\\TCV_JapaNinja\\databases\\JapaNinja_Database.mdf;Integrated Security=True";
         //public static string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\\\\192.168.248.1\\tcv_file_share\\TCVF010\\SOFT\\JapaneseSoftware\\databases\\JapaNinja_Database.mdf;Integrated Security=True;Connect Timeout=30";
 
@@ -36,7 +37,14 @@ namespace TCV_JapaNinja.Class
         public static string pathImageEdit = "Images\\ButtonImages\\compose.png";
         public static string pathImageRead = "Images\\ButtonImages\\eyes.png";
         public static string pathImageDelete = "Images\\ButtonImages\\bin.png";
-        
+
+        /// <summary>
+        /// Kết nối đến database
+        /// </summary>
+        public static DataLoader dataLoader = new DataLoader(connectionString);
+
+
+
         /// <summary>
         /// bảng cài đặt trong sql
         /// </summary>
@@ -47,10 +55,7 @@ namespace TCV_JapaNinja.Class
             Table_Curriculum,
             Table_Grammar,
             Table_Group,
-            Table_HistoryGrammar,
-            Table_HistoryKanji,
-            Table_HistoryTechnical,
-            Table_HistoryVoc,
+            Table_HistoryGKTV,
             Table_Images,
             Table_Kanji,
             Table_Level,
@@ -75,10 +80,7 @@ namespace TCV_JapaNinja.Class
             "curriculumTable",//Table_Curriculum,
             "grammarTable",//Table_Grammar,
             "groupTable",//Table_Group,
-            "historyGrammarTable",//Table_HistoryGrammar,
-            "historyKanjiTable",//Table_HistoryKanji,
-            "historyTechnicalTable",//Table_HistoryTechnical,
-            "historyVocabularyTable",//Table_HistoryVoc,
+            "historyGKTVTable",//Table_HistoryGKTV,
             "imagesTable",//Table_Images,
             "kanjiTable",//Table_Kanji,
             "levelTable",//Table_Level,
@@ -133,60 +135,6 @@ namespace TCV_JapaNinja.Class
             Grammar,
             Technical,
             LearningCategory_
-        }
-
-        // tao dataset de add table vao dataset
-        public static DataSet dataSet;
-
-        /// <summary>
-        /// load All Data
-        /// </summary>
-        public static void LoadDataAllSQL()
-        {
-            dataSet = new DataSet();
-
-            // su dung using de ket not csdl, va tu dong khi khong can thiet
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    // Lấy danh sách tên các bảng
-                    DataTable schemaTable = connection.GetSchema("Tables");
-
-                    foreach(DataRow row in schemaTable.Rows)
-                    {
-                        string tableName = row["TABLE_NAME"].ToString();
-
-                        // Tạo sqlDataAdapter cho mỗi bảng
-                        SqlDataAdapter dataAdapter = new SqlDataAdapter($"SELECT * FROM {tableName}", connection);
-
-                        // điền dữ liệu vào dataset
-                        dataAdapter.Fill(dataSet, tableName);
-                    }
-
-                }
-                catch (SqlException sqlEx)
-                {
-                    // Xử lý lỗi liên quan đến SQL
-                    MessageBox.Show("Có lỗi xảy ra khi truy vấn cơ sở dữ liệu: " + sqlEx.Message);
-                }
-                catch (Exception ex)
-                {
-                    // Xử lý các lỗi khác
-                    MessageBox.Show("Có lỗi xảy ra: " + ex.Message);
-                }
-                finally
-                {
-                    // Đảm bảo rằng kết nối được đóng
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-            }
         }
 
         #endregion
@@ -317,120 +265,49 @@ namespace TCV_JapaNinja.Class
             "isActive"//GroupCol_IsActive,
         };
 
+        #endregion
+
+        #region HISTORY_GKTV
+
         /// <summary>
-        /// tim kiem id group
+        /// Lịch sử học tập
+        /// Grammar -> Ngữ pháp
+        /// Kanji -> Chữ hán
+        /// Technical -> Từ vựng chuyên ngành
+        /// Vocabulary -> Từ vựng
+        /// 
+        /// Memorize -> Đã học
+        /// Icons -> Hình ảnh
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static bool getIdGroup(string text, out int id)
+        public enum enHistoryGKTVCol
         {
-            bool rs = false;
-            id = -1;
-
-            DataTable dataTable = dataSet.Tables[tableNames[(int)enTables.Table_Group]];
-            DataView dataView = new DataView(dataTable);
-            dataView.RowFilter = $"{groupCol[(int)enGroupCol.GroupCol_Name]} = {text}";
-
-            foreach (DataRowView rowView in dataView)
-            {
-                DataRow row = rowView.Row;
-                id = int.Parse(row[(int)enGroupCol.GroupCol_Id].ToString());
-                return true;
-            }
-
-            return rs;
+            HisGKTVCol_Id = 0,
+            HisGKTVCol_UserId,
+            HisGKTVCol_GrammarId,
+            HisGKTVCol_KanjiId,
+            HisGKTVCol_TechnicalId,
+            HisGKTVCol_VocId,
+            HisGKTVCol_IsRemembered,
+            HisGKTVCol_IsRememberedCheck,
+            HisGKTVCol_Icons,
+            HisGKTVCol_CreatedDate,
+            HisGKTVCol_UpdatedDate,
+            HisGKTVCol_
         }
 
-        #endregion
-
-        #region HISTORY_GRAMMAR
-
-        public enum enHisGrammarCol
+        public static string[] historyGKTVCol = new string[(int)enHistoryGKTVCol.HisGKTVCol_]
         {
-            HisGrammarCol_UserId,
-            HisGrammarCol_GrammarId,
-            HisGrammarCol_Memorize,
-            HisGrammarCol_CreatedDate,
-            HisGrammarCol_UpdatedDate,
-            HisGrammarCol_
-        }
-
-        public static string[] hisGrammarCol = new string[(int)enHisGrammarCol.HisGrammarCol_]
-        {
-            "userId",//HisGrammarCol_UserId,
-            "grammarId",//HisGrammarCol_GrammarId,
-            "memorize",//HisGrammarCol_Memorize,
-            "createdDate",//HisGrammarCol_CreatedDate,
-            "updatedDate"//HisGrammarCol_UpdatedDate,
-        };
-
-        #endregion
-
-        #region HISTORY_KANJI
-
-        public enum enHisKanjiCol
-        {
-            HisKanjiCol_UserId,
-            HisKanjiCol_KanjiId,
-            HisKanjiCol_Memorize,
-            HisKanjiCol_CreatedDate,
-            HisKanjiCol_UpdatedDate,
-            HisKanjiCol_
-        }
-
-        public static string[] hisKanjiCol = new string[(int)enHisKanjiCol.HisKanjiCol_]
-        {
-            "userId",//HisKanjiCol_UserId,
-            "kanjiId",//HisKanjiCol_KanjiId,
-            "memorize",//HisKanjiCol_Memorize,
-            "createdDate",//HisKanjiCol_CreatedDate,
-            "updatedDate"//HisKanjiCol_UpdatedDate,
-        };
-
-        #endregion
-
-        #region HISTORY_TECHNICAL
-
-        public enum enHisTechCol
-        {
-            HisTechCol_UserId,
-            HisTechCol_TechnicalId,
-            HisTechCol_Memorize,
-            HisTechCol_CreatedDate,
-            HisTechColl_UpdatedDate,
-            HisTechCol_
-        }
-
-        public static string[] hisTechCol = new string[(int)enHisTechCol.HisTechCol_]
-        {
-            "userId",//HisTechCol_UserId,
-            "technicalId",//HisTechCol_TechnicalId,
-            "memorize",//HisTechCol_Memorize,
-            "createdDate",//HisTechCol_CreatedDate,
-            "updatedDate"//HisTechColl_UpdatedDate,
-        };
-
-        #endregion
-
-        #region HISTORY_VOCABULARY
-
-        public enum enHisVocCol
-        {
-            HisVocCol_UserId,
-            HisVocCol_VocabularyId,
-            HisVocCol_Memorize,
-            HisVocCol_CreatedDate,
-            HisVocCol_UpdatedDate,
-            HisVocCol_
-        }
-
-        public static string[] hisVocCol = new string[(int)enHisVocCol.HisVocCol_]
-        {
-            "userId",//HisVocCol_UserId,
-            "vocabularyId",//HisVocCol_VocabularyId,
-            "memorize",//HisVocCol_Memorize,
-            "createdDate",//HisVocCol_CreatedDate,
-            "updatedDate"//HisVocCol_UpdatedDate,
+            "historyGKTVId",//HisGKTVCol_Id,
+            "userId",//HisGKTVCol_UserId,
+            "grammarId",//HisGKTVCol_GrammarId,
+            "kanjiId",//HisGKTVCol_KanjiId,
+            "technicalId",//HisGKTVCol_TechnicalId,
+            "vocabularyId",//HisGKTVCol_VocId,
+            "isRemembered",//HisGKTVCol_IsRemembered,
+            "isRememberedCheck",//HisGKTVCol_IsRememberedCheck,
+            "icons",//HisGKTVCol_Icons,
+            "createdDate",//HisGKTVCol_CreatedDate,
+            "updatedDate"//HisGKTVCol_UpdatedDate,
         };
 
         #endregion
@@ -467,8 +344,6 @@ namespace TCV_JapaNinja.Class
         };
 
         #endregion
-
-
 
         #region KANJI
 
@@ -544,6 +419,45 @@ namespace TCV_JapaNinja.Class
 
         #endregion
 
+        #region PARENT_CHILD
+        public enum enParentChildCol
+        {
+            ParentChildCol_ParentId,
+            ParentChildCol_ChildId,
+            ParentChildCol_
+        }
+        public static string[] parentChildCol = new string[(int)enParentChildCol.ParentChildCol_]
+        {
+            "parentId",//ParentChildCol_ParentId,
+            "childId",//ParentChildCol_ChildId,
+        };
+        #endregion
+
+        #region POSITION
+
+        public enum enPositionCol
+        {
+            PositionCol_Id,
+            PositionCol_Name,
+            PositionCol_Description,
+            PositionCol_CreatedDate,
+            PositionCol_UpdatedDate,
+            PositionCol_IsActive,
+            PositionCol_
+        }
+
+        public static string[] positionCol = new string[(int)enPositionCol.PositionCol_]
+        {
+            "positionId",//PositionCol_Id,
+            "name",//PositionCol_Name,
+            "description",//PositionCol_Description,
+            "createdDate",//PositionCol_CreatedDate,
+            "updatedDate",//PositionCol_UpdatedDate,
+            "isActive"//PositionCol_IsActive,
+        };
+
+        #endregion
+
         #region ROLE
 
         public enum enRoleCol
@@ -579,30 +493,6 @@ namespace TCV_JapaNinja.Class
 
         #endregion
 
-        #region POSITION
-
-        public enum enPositionCol
-        {
-            PositionCol_Id,
-            PositionCol_Name,
-            PositionCol_Description,
-            PositionCol_CreatedDate,
-            PositionCol_UpdatedDate,
-            PositionCol_IsActive,
-            PositionCol_
-        }
-
-        public static string[] positionCol = new string[(int)enPositionCol.PositionCol_]
-        {
-            "positionId",//PositionCol_Id,
-            "name",//PositionCol_Name,
-            "description",//PositionCol_Description,
-            "createdDate",//PositionCol_CreatedDate,
-            "updatedDate",//PositionCol_UpdatedDate,
-            "isActive"//PositionCol_IsActive,
-        };
-
-        #endregion
 
         #region TECHNICAL
 
@@ -706,6 +596,7 @@ namespace TCV_JapaNinja.Class
             UserCol_PaswordOld,
             UserCol_Description,
             UserCol_Email,
+            UserCol_Phone,
             UserCol_CreatedDate,
             UserCol_UpdatedDate,
             UserCol_IsActive,
@@ -725,6 +616,7 @@ namespace TCV_JapaNinja.Class
             "userPasswordOld",//UserCol_PaswordOld,
             "userDescription",//UserCol_Description,
             "userEmail",//UserCol_Email,
+            "userPhone",//UserCol_Phone,
             "createdDate",//UserCol_CreatedDate,
             "updatedDate",//UserCol_UpdatedDate,
             "isActive",//UserCol_IsActive,

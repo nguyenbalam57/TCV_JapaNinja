@@ -17,27 +17,27 @@ namespace TCV_JapaNinja.Converters.Customs
         /// </summary>
         /// <param name="answerTable"></param>
         /// <returns></returns>
-        public static List<CustomAnswer> ConvertDataTableToCustomAnswerList(DataTable answerTable)
+        public static List<CustomAnswer> ConvertDataTableToCustomAnswerList(DataTable table)
         {
             var list = new List<CustomAnswer>();
-            foreach (DataRow answerRow in answerTable.Rows)
+            foreach (DataRow row in table.Rows)
             {
-                var answer = new CustomAnswer
+                var item = new CustomAnswer
                 {
-                    Id = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_Id]),
-                    VocabularyId = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_VocId]),
-                    TechnicalId = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_TechnicalId]),
-                    GrammarId = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_GrammarId]),
-                    KanjiId = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_KanjiId]),
-                    AnswerText = answerRow.Field<string>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_Text]),
-                    IsCorrect = answerRow.Field<bool>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_IsCorrect]),
-                    AnswerCheck = answerRow.Field<bool>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_IsCorrect]),
-                    CreatedDate = answerRow.Field<DateTime>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_CreatedDate]),
-                    UpdatedDate = answerRow.Field<DateTime>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_UpdatedDate]),
-                    UserId = answerRow.Field<int>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_UserId])
+                    Id = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_Id]).GetValueOrDefault(-1),
+                    VocabularyId = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_VocId]).GetValueOrDefault(-1),
+                    TechnicalId = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_TechnicalId]).GetValueOrDefault(-1),
+                    GrammarId = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_GrammarId]).GetValueOrDefault(-1),
+                    KanjiId = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_KanjiId]).GetValueOrDefault(-1),
+                    AnswerText = row.SafeField<string>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_Text]) ?? string.Empty,
+                    IsCorrect = row.SafeField<bool?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_IsCorrect]).GetValueOrDefault(false),
+                    AnswerCheck = row.SafeField<bool?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_IsCorrect]).GetValueOrDefault(false),
+                    CreatedDate = row.SafeField<DateTime?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_CreatedDate]) ?? DateTime.Now,
+                    UpdatedDate = row.SafeField<DateTime?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_UpdatedDate]) ?? DateTime.Now,
+                    UserId = row.SafeField<int?>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_UserId]).GetValueOrDefault(-1)
 
                 };
-                list.Add(answer);
+                list.Add(item);
             }
 
             return list;

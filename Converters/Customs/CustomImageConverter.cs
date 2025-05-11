@@ -19,23 +19,23 @@ namespace TCV_JapaNinja.Converters.Customs
         public static List<CustomImage> ConvertDataTableToCustomImageList(DataTable imageTable)
         {
             var list = new List<CustomImage>();
-            foreach (DataRow answerRow in imageTable.Rows)
+            foreach (DataRow row in imageTable.Rows)
             {
-                var image = new CustomImage
+                var item = new CustomImage
                 {
-                    Id = answerRow.Field<int>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Id]),
-                    VocabularyId = answerRow.Field<int>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_VocId]),
-                    TechnicalId = answerRow.Field<int>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_TechnicalId]),
-                    GrammarId = answerRow.Field<int>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_GrammarId]),
-                    KanjiId = answerRow.Field<int>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_KanjiId]),
-                    ImageData = answerRow.Field<byte[]>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Data]),
-                    ImageType = answerRow.Field<string>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Type]),
-                    ImageName = answerRow.Field<string>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Name]),
-                    CreatedDate = answerRow.Field<DateTime>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_CreatedDate]),
-                    UpdatedDate = answerRow.Field<DateTime>(ConnectedData.answerCol[(int)ConnectedData.enAnswerCol.AnswerCol_UpdatedDate]),
+                    Id = row.SafeField<int?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Id]).GetValueOrDefault(-1),
+                    VocabularyId = row.SafeField<int?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_VocId]).GetValueOrDefault(-1),
+                    TechnicalId = row.SafeField<int?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_TechnicalId]).GetValueOrDefault(-1),
+                    GrammarId = row.SafeField<int?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_GrammarId]).GetValueOrDefault(-1),
+                    KanjiId = row.SafeField<int?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_KanjiId]).GetValueOrDefault(-1),
+                    ImageData = row.SafeField<byte[]>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Data]) ?? null,
+                    ImageType = row.SafeField<string>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Type]) ?? string.Empty,
+                    ImageName = row.SafeField<string>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_Name]) ?? string.Empty,
+                    CreatedDate = row.SafeField<DateTime?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_CreatedDate]) ?? DateTime.Now,
+                    UpdatedDate = row.SafeField<DateTime?>(ConnectedData.imagesCol[(int)ConnectedData.enImageCol.ImageCol_UpdatedDate]) ?? DateTime.Now,
 
                 };
-                list.Add(image);
+                list.Add(item);
             }
 
             return list;

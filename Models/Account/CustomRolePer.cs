@@ -13,6 +13,9 @@ namespace TCV_JapaNinja.Models.Account
         Update,
         Delete,
     }
+    /// <summary>
+    /// Lớp đại diện cho một vai trò tùy chỉnh trong hệ thống.
+    /// </summary>
     public class CustomRolePer
     {
         public string RoleId { get; set; }

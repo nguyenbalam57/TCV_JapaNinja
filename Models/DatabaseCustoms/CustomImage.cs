@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace TCV_JapaNinja.Models.DatabaseCustoms
 {
+    /// <summary>
+    /// Lớp đại diện cho một ảnh tùy chỉnh trong hệ thống.
+    /// </summary>
     public class CustomImage
     {
         public int Id { get; set; } // ID ảnh

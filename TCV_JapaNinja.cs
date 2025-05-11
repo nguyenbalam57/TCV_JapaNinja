@@ -20,9 +20,6 @@ namespace TCV_JapaNinja
         public TCV_JapaNinja()
         {
             InitializeComponent();
-            
-            // Load data sql
-            ConnectedData.LoadDataAllSQL();
 
             // Khởi tạo timer
             initializeTimer();
@@ -72,7 +69,7 @@ namespace TCV_JapaNinja
             if (formLogin != null)
             {
                 // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
-                Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
+                Accounts.updateIPAdress(Accounts.UserLogin.Id, string.Empty);
                 formLogin.Close();
             }
         }
@@ -94,7 +91,7 @@ namespace TCV_JapaNinja
         public void setNameLabelAccount()
         {
             //Accounts.vdScreenNameAccount(nameAccount_lb);
-            nameAccount_lb.Text = Accounts.UserLogin.UserName;
+            nameAccount_lb.Text = Accounts.UserLogin.Name;
             // Chạy khi thay đổi tên người dùng
             InitializeLoadRole();
         }

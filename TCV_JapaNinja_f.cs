@@ -49,7 +49,6 @@ namespace TCV_JapaNinja
             // Khởi tạo timer
             initializeTimer();
 
-            ConnectedData.LoadDataAllSQL();
             setTextColorAll();
             setNameLabelAccount();
         }
@@ -304,7 +303,7 @@ namespace TCV_JapaNinja
             if(formLogin != null)
             {
                 // khi thực hiện đóng form sẽ loại bỏ user đăng nhập
-                Accounts.updateIPAdress(Accounts.UserLogin.UserId, string.Empty);
+                Accounts.updateIPAdress(Accounts.UserLogin.Id, string.Empty);
                 formLogin.Close();
             }
         }

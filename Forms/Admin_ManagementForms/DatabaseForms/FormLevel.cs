@@ -136,7 +136,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management.InputDatabase
                         command.Parameters.AddWithValue("@createdDate", DateTime.Now);
                         command.Parameters.AddWithValue("@updatedDate", DateTime.Now);
                         command.Parameters.AddWithValue("@isActive", true);
-                        command.Parameters.AddWithValue("@userId", Class.Accounts.UserLogin.UserId);
+                        command.Parameters.AddWithValue("@userId", Class.Accounts.UserLogin.Id);
                         command.ExecuteNonQuery();
                     }
                     if (connection.State != ConnectionState.Closed)
@@ -194,7 +194,7 @@ namespace TCV_JapaNinja.Forms.Admin_Management.InputDatabase
             SqlCommand command = new SqlCommand(updateQuery, connection);
             command.Parameters.AddWithValue("@updatedDate", DateTime.Now);
             command.Parameters.AddWithValue("@levelId", levelIDActive);
-            command.Parameters.AddWithValue("@userId", Class.Accounts.UserLogin.UserId);
+            command.Parameters.AddWithValue("@userId", Class.Accounts.UserLogin.Id);
 
             switch (enData)
             {

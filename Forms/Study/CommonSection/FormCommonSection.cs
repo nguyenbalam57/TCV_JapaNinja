@@ -9,12 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TCV_JapaNinja.Class;
+using TCV_JapaNinja.Models.DatabaseCustoms;
+using static TCV_JapaNinja.Class.ConnectedData;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
     public partial class FormCommonSection : Form
     {
-        DataTable kanjiTable;
+        private List<CustomKanji> Kanjis;
         public FormCommonSection()
         {
             InitializeComponent();
@@ -28,7 +30,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             {
                 var frmLearning = (FormLearning)Application.OpenForms["FormLearning"];
                 if (frmLearning == null) { frmLearning = new FormLearning(); }
-                frmLearning.getDataTableLeaningData(kanjiTable, (int)ConnectedData.enLearningCategory.Kanji);
+                frmLearning.GetDataTableLeaningData(Kanjis, (int)ConnectedData.enLearningCategory.Kanji);
                 openChildForm(frmLearning);
             }
             else
@@ -36,10 +38,33 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
                 MessageBox.Show("Bạn không có quyền truy cập!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        public void DisplayKanjiData(DataTable kanjiData)
+        /// <summary>
+        /// Hiển thị dữ liệu lên form
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="datas"></param>
+        /// <param name="leaningCatego"></param>
+        public void DisplayCommonSectionData<T>(List<T> datas, int leaningCatego)
         {
-            kanjiTable = kanjiData;
+            enLearningCategory enLearning = (enLearningCategory)leaningCatego;
+
+            switch (enLearning)
+            {
+                case enLearningCategory.Kanji:
+                    Kanjis = datas as List<CustomKanji>;
+                    break;
+                case enLearningCategory.Vocabulary:
+                    //LoadVocabularyDisplay(datas as List<CustomVocabulary>);
+                    break;
+                case enLearningCategory.Grammar:
+                    //LoadGrammarDisplay(datas as List<CustomGrammar>);
+                    break;
+                case enLearningCategory.Technical:
+                    //LoadTechnicalDisplay(datas as List<CustomTechnical>);
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void learning_btn_Click(object sender, EventArgs e)
@@ -48,7 +73,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 
             var frmLeaning = (FormLearning)Application.OpenForms["FormLearning"];
             if (frmLeaning == null) {frmLeaning = new FormLearning(); }
-            frmLeaning.getDataTableLeaningData(kanjiTable, (int)ConnectedData.enLearningCategory.Kanji);
+            frmLeaning.GetDataTableLeaningData( Kanjis, (int)enLearningCategory.Kanji);
 
             openChildForm(frmLeaning);
 

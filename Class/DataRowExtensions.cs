@@ -17,7 +17,7 @@ namespace TCV_JapaNinja.Class
         /// <param name="row"></param>
         /// <param name="columnName"></param>
         /// <returns></returns>
-        public static T SafeFieId<T>(this DataRow row, string columnName)
+        public static T SafeField<T>(this DataRow row, string columnName)
         {
             try
             {

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TCV_JapaNinja.Class;
 using TCV_JapaNinja.Forms.Admin_Managent;
 using TCV_JapaNinja.Models.DatabaseCustoms;
@@ -20,46 +21,48 @@ namespace TCV_JapaNinja.Converters.Customs
         /// <param name="allAnswers"></param>
         /// <param name="allImages"></param>
         /// <returns></returns>
-        public static List<CustomKanji> ConvertDataTableToCustomKanjiList(DataTable kanjiTable, List<CustomAnswer> allAnswers, List<CustomImage> allImages)
+        public static List<CustomKanji> ConvertDataTableToCustomKanjiList(DataTable table)
         {
-            var kanjiList = new List<CustomKanji>();
+            var list = new List<CustomKanji>();
 
-            foreach (DataRow kanjiRow in kanjiTable.Rows)
+            foreach (DataRow row in table.Rows)
             {
-                int kanjiId = kanjiRow.SafeFieId<int>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Id]);
+                int kanjiId = row.SafeField<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Id]).GetValueOrDefault(-1);
 
-                var kanji = new CustomKanji
+                var item = new CustomKanji
                 {
                     Id = kanjiId,
-                    LessonNumber = kanjiRow.SafeFieId<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LessonNumber]).GetValueOrDefault(-1),
-                    Kanji = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Kanji]) ?? string.Empty,
-                    HanTu = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_HanTu]) ?? string.Empty,
-                    AmOn = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_AmOn]) ?? string.Empty,
-                    AmKun = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_AmKun]) ?? string.Empty,
-                    English = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_English]) ?? string.Empty,
-                    TiengViet = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_TiengViet]) ?? string.Empty,
-                    Example = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Example]) ?? string.Empty,
-                    Note = kanjiRow.SafeFieId<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Note]) ?? string.Empty,
-                    Strokes = kanjiRow.SafeFieId<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Strokes]).GetValueOrDefault(-1),
-                    CreatedDate = kanjiRow.SafeFieId<DateTime?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_CreatedDate]) ?? DateTime.Now,
-                    UpdatedDate = kanjiRow.SafeFieId<DateTime?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_UpdatedDate]) ?? DateTime.Now,
-                    IsActive = kanjiRow.SafeFieId<bool?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_IsActive]).GetValueOrDefault(false),
-                    LevelId = kanjiRow.SafeFieId<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LevelId]).GetValueOrDefault(-1),
-                    UserId = kanjiRow.SafeFieId<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_UserId]).GetValueOrDefault(-1),
-                    //CurriculumId = kanjiRow.Field<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_CurriculumId]).GetValueOrDefault(-1),
-
+                    LessonNumber = row.SafeField<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LessonNumber]).GetValueOrDefault(-1),
+                    Kanji = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Kanji]) ?? string.Empty,
+                    HanTu = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_HanTu]) ?? string.Empty,
+                    AmOn = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_AmOn]) ?? string.Empty,
+                    AmKun = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_AmKun]) ?? string.Empty,
+                    English = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_English]) ?? string.Empty,
+                    TiengViet = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_TiengViet]) ?? string.Empty,
+                    Example = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Example]) ?? string.Empty,
+                    Note = row.SafeField<string>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Note]) ?? string.Empty,
+                    Strokes = row.SafeField<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_Strokes]).GetValueOrDefault(-1),
+                    CreatedDate = row.SafeField<DateTime?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_CreatedDate]) ?? DateTime.Now,
+                    UpdatedDate = row.SafeField<DateTime?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_UpdatedDate]) ?? DateTime.Now,
+                    IsActive = row.SafeField<bool?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_IsActive]).GetValueOrDefault(false),
+                    UserId = row.SafeField<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_UserId]).GetValueOrDefault(-1),
+                    // Lấy giá trị Level từ danh sách Level
+                    Level = ConnectedData.dataLoader.LoadLevelsList()?.Where(o => o.Id == row.SafeField<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_LevelId]).GetValueOrDefault(-1)).FirstOrDefault() ?? new CustomLevel(),
+                    // Lấy giá trị Curriculum từ danh sách Curriculum
+                    Curriculum = ConnectedData.dataLoader.LoadCurriculumsList()?.Where(o => o.Id == row.Field<int?>(ConnectedData.kanjiCol[(int)ConnectedData.enKanjiCol.KanjiCol_CurriculumId]).GetValueOrDefault(-1)).FirstOrDefault() ?? new CustomCurriculum(),
                     // Lấy danh sách Answer
-                    Answers = allAnswers?.Where(a => a.KanjiId == kanjiId).ToList() ?? new List<CustomAnswer>(),
-
+                    Answers = ConnectedData.dataLoader.LoadAnswersList()?.Where(o => o.KanjiId == kanjiId).ToList() ?? new List<CustomAnswer>(),
                     // Lấy danh sách Image
-                    Images = allImages?.Where(img => img.KanjiId == kanjiId).ToList() ?? new List<CustomImage>()
+                    Images = ConnectedData.dataLoader.LoadImagesList()?.Where(img => img.KanjiId == kanjiId).ToList() ?? new List<CustomImage>(),
+
+                    HistoryKanji = ConnectedData.dataLoader.LoadHistoryGKTVList()?.Where(o => o.KanjiId == kanjiId).FirstOrDefault() ?? new CustomHistoryGKTV(),
                 };
 
-                kanjiList.Add(kanji);
+                list.Add(item);
             }
  
 
-            return kanjiList;
+            return list;
         }
     }
 }
