@@ -82,7 +82,11 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         private void flashCard_btn_Click(object sender, EventArgs e)
         {
             IconButton button = (IconButton)sender;
+            var frmFlshCard = (FormFlashCard)Application.OpenForms["FormFlashCard"];
+            if (frmFlshCard == null) { frmFlshCard = new FormFlashCard(); }
+            frmFlshCard.GetDataFlashCard(Kanjis, (int)enLearningCategory.Kanji);
 
+            openChildForm(frmFlshCard);
         }
 
         private void matching_btn_Click(object sender, EventArgs e)

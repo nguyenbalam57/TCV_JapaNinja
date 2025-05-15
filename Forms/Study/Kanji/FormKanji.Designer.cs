@@ -40,7 +40,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chillformKanji_pn.Location = new System.Drawing.Point(1, 95);
             this.chillformKanji_pn.Name = "chillformKanji_pn";
-            this.chillformKanji_pn.Size = new System.Drawing.Size(1064, 402);
+            this.chillformKanji_pn.Size = new System.Drawing.Size(1064, 459);
             this.chillformKanji_pn.TabIndex = 8;
             // 
             // lessonNumber_flpn

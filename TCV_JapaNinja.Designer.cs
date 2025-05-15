@@ -34,8 +34,8 @@
             this.image_User_icpt = new FontAwesome.Sharp.IconPictureBox();
             this.login_ctmnstrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.show_Menu_btn = new FontAwesome.Sharp.IconButton();
             this.nameAccount_lb = new System.Windows.Forms.Label();
+            this.show_Menu_btn = new FontAwesome.Sharp.IconButton();
             this.buttom_Main_pn = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.left_Main_pn = new System.Windows.Forms.Panel();
@@ -48,9 +48,9 @@
             this.evaluate_btn = new FontAwesome.Sharp.IconButton();
             this.logo_pn = new System.Windows.Forms.Panel();
             this.logo_pt = new System.Windows.Forms.PictureBox();
+            this.menu_pn = new System.Windows.Forms.Panel();
             this.right_Main_pn = new System.Windows.Forms.Panel();
             this.chillForm_Main_pn = new System.Windows.Forms.Panel();
-            this.menu_pn = new System.Windows.Forms.Panel();
             this.top_Main_pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image_User_icpt)).BeginInit();
             this.login_ctmnstrip.SuspendLayout();
@@ -104,6 +104,18 @@
             this.logoutToolStripMenuItem.Text = "Log Out";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
+            // nameAccount_lb
+            // 
+            this.nameAccount_lb.AutoSize = true;
+            this.nameAccount_lb.ContextMenuStrip = this.login_ctmnstrip;
+            this.nameAccount_lb.Location = new System.Drawing.Point(58, 13);
+            this.nameAccount_lb.Margin = new System.Windows.Forms.Padding(0);
+            this.nameAccount_lb.Name = "nameAccount_lb";
+            this.nameAccount_lb.Size = new System.Drawing.Size(45, 17);
+            this.nameAccount_lb.TabIndex = 6;
+            this.nameAccount_lb.Text = "Name";
+            this.nameAccount_lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // show_Menu_btn
             // 
             this.show_Menu_btn.FlatAppearance.BorderSize = 0;
@@ -119,18 +131,6 @@
             this.show_Menu_btn.TabIndex = 7;
             this.show_Menu_btn.UseVisualStyleBackColor = true;
             this.show_Menu_btn.Click += new System.EventHandler(this.show_Menu_btn_Click);
-            // 
-            // nameAccount_lb
-            // 
-            this.nameAccount_lb.AutoSize = true;
-            this.nameAccount_lb.ContextMenuStrip = this.login_ctmnstrip;
-            this.nameAccount_lb.Location = new System.Drawing.Point(58, 13);
-            this.nameAccount_lb.Margin = new System.Windows.Forms.Padding(0);
-            this.nameAccount_lb.Name = "nameAccount_lb";
-            this.nameAccount_lb.Size = new System.Drawing.Size(45, 17);
-            this.nameAccount_lb.TabIndex = 6;
-            this.nameAccount_lb.Text = "Name";
-            this.nameAccount_lb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttom_Main_pn
             // 
@@ -335,6 +335,15 @@
             this.logo_pt.TabIndex = 0;
             this.logo_pt.TabStop = false;
             // 
+            // menu_pn
+            // 
+            this.menu_pn.Controls.Add(this.show_Menu_btn);
+            this.menu_pn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.menu_pn.Location = new System.Drawing.Point(0, 0);
+            this.menu_pn.Name = "menu_pn";
+            this.menu_pn.Size = new System.Drawing.Size(200, 35);
+            this.menu_pn.TabIndex = 0;
+            // 
             // right_Main_pn
             // 
             this.right_Main_pn.BackColor = System.Drawing.Color.White;
@@ -355,15 +364,6 @@
             this.chillForm_Main_pn.Size = new System.Drawing.Size(817, 597);
             this.chillForm_Main_pn.TabIndex = 1;
             // 
-            // menu_pn
-            // 
-            this.menu_pn.Controls.Add(this.show_Menu_btn);
-            this.menu_pn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.menu_pn.Location = new System.Drawing.Point(0, 0);
-            this.menu_pn.Name = "menu_pn";
-            this.menu_pn.Size = new System.Drawing.Size(200, 35);
-            this.menu_pn.TabIndex = 0;
-            // 
             // TCV_JapaNinja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -377,6 +377,7 @@
             this.Controls.Add(this.top_Main_pn);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "TCV_JapaNinja";
             this.Text = "TCV_JapaNinja";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TCV_JapaNinja_FormClosed);

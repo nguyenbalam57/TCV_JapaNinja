@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,9 +38,17 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
          * Phần đang còn làm dở là nút heart (trái tim) chưa hoàn thành, có animation của heart và chỉ cần tải ảnh và add vào.
          */
 
+        private List<CustomKanji> Kanjis = new List<CustomKanji>();
+
         public FormLearning()
         {
             InitializeComponent();
+            SetUpUI();
+        }
+
+        private void SetUpUI ()
+        {
+            this.TopLevel = false;
         }
 
         /// <summary>
@@ -79,9 +88,11 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         {
             if (Accounts.UserLogin.HasRermission(Accounts.codeRoles[(int)Accounts.enRoleRow.RoleRow_Kanji, (int)Accounts.enRoleCol.RoleCol_Id], Models.Account.Permission.Read))
             {
-                if (kanjis == null || kanjis.Count() <= 0 ) return;
+                if (kanjis == null || kanjis.Count() <= 0 || Kanjis.SequenceEqual(kanjis)) return;
 
                 viewVocabulary_flpn.Controls.Clear();
+
+                Kanjis = kanjis;
 
                 foreach (var kanji in kanjis)
                 {
