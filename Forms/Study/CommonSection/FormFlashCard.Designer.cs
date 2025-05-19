@@ -35,12 +35,15 @@
             this.btnRemember = new FontAwesome.Sharp.IconButton();
             this.btnNext = new FontAwesome.Sharp.IconButton();
             this.btnPrev = new FontAwesome.Sharp.IconButton();
-            this.topPanel = new System.Windows.Forms.Panel();
+            this.settingPanel = new System.Windows.Forms.Panel();
+            this.ptbSetting = new FontAwesome.Sharp.IconPictureBox();
             this.hintPanel = new System.Windows.Forms.Panel();
             this.cardPanel = new System.Windows.Forms.Panel();
             this.navigationPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.controlsPanel.SuspendLayout();
+            this.settingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // navigationPanel
@@ -48,10 +51,10 @@
             this.navigationPanel.BackColor = System.Drawing.Color.White;
             this.navigationPanel.Controls.Add(this.tableLayoutPanel1);
             this.navigationPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.navigationPanel.Location = new System.Drawing.Point(0, 313);
+            this.navigationPanel.Location = new System.Drawing.Point(0, 333);
             this.navigationPanel.Margin = new System.Windows.Forms.Padding(0);
             this.navigationPanel.Name = "navigationPanel";
-            this.navigationPanel.Size = new System.Drawing.Size(611, 37);
+            this.navigationPanel.Size = new System.Drawing.Size(1058, 37);
             this.navigationPanel.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -68,7 +71,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(611, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1058, 37);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // controlsPanel
@@ -78,7 +81,7 @@
             this.controlsPanel.Controls.Add(this.btnNext);
             this.controlsPanel.Controls.Add(this.btnPrev);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.controlsPanel.Location = new System.Drawing.Point(146, 0);
+            this.controlsPanel.Location = new System.Drawing.Point(369, 0);
             this.controlsPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlsPanel.Name = "controlsPanel";
             this.controlsPanel.Size = new System.Drawing.Size(319, 37);
@@ -144,40 +147,63 @@
             this.btnPrev.TabIndex = 0;
             this.btnPrev.UseVisualStyleBackColor = true;
             // 
-            // topPanel
+            // settingPanel
             // 
-            this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Name = "topPanel";
-            this.topPanel.Size = new System.Drawing.Size(611, 37);
-            this.topPanel.TabIndex = 1;
+            this.settingPanel.BackColor = System.Drawing.Color.White;
+            this.settingPanel.Controls.Add(this.ptbSetting);
+            this.settingPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.settingPanel.Location = new System.Drawing.Point(0, 0);
+            this.settingPanel.Name = "settingPanel";
+            this.settingPanel.Size = new System.Drawing.Size(1058, 15);
+            this.settingPanel.TabIndex = 1;
+            // 
+            // ptbSetting
+            // 
+            this.ptbSetting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbSetting.BackColor = System.Drawing.Color.White;
+            this.ptbSetting.ForeColor = System.Drawing.Color.Black;
+            this.ptbSetting.IconChar = FontAwesome.Sharp.IconChar.CaretDown;
+            this.ptbSetting.IconColor = System.Drawing.Color.Black;
+            this.ptbSetting.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ptbSetting.IconSize = 15;
+            this.ptbSetting.Location = new System.Drawing.Point(1043, 0);
+            this.ptbSetting.Margin = new System.Windows.Forms.Padding(0);
+            this.ptbSetting.Name = "ptbSetting";
+            this.ptbSetting.Size = new System.Drawing.Size(15, 15);
+            this.ptbSetting.TabIndex = 0;
+            this.ptbSetting.TabStop = false;
+            this.ptbSetting.Click += new System.EventHandler(this.ptbSetting_Click);
+            this.ptbSetting.MouseEnter += new System.EventHandler(this.ptbSetting_MouseEnter);
+            this.ptbSetting.MouseLeave += new System.EventHandler(this.ptbSetting_MouseLeave);
             // 
             // hintPanel
             // 
+            this.hintPanel.BackColor = System.Drawing.Color.White;
             this.hintPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.hintPanel.Location = new System.Drawing.Point(0, 269);
+            this.hintPanel.Location = new System.Drawing.Point(0, 289);
             this.hintPanel.Margin = new System.Windows.Forms.Padding(0);
             this.hintPanel.Name = "hintPanel";
-            this.hintPanel.Size = new System.Drawing.Size(611, 44);
+            this.hintPanel.Size = new System.Drawing.Size(1058, 44);
             this.hintPanel.TabIndex = 2;
             // 
             // cardPanel
             // 
+            this.cardPanel.BackColor = System.Drawing.Color.White;
             this.cardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardPanel.Location = new System.Drawing.Point(0, 37);
+            this.cardPanel.Location = new System.Drawing.Point(0, 15);
             this.cardPanel.Margin = new System.Windows.Forms.Padding(8);
             this.cardPanel.Name = "cardPanel";
-            this.cardPanel.Size = new System.Drawing.Size(611, 232);
+            this.cardPanel.Size = new System.Drawing.Size(1058, 274);
             this.cardPanel.TabIndex = 3;
             // 
             // FormFlashCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 350);
+            this.ClientSize = new System.Drawing.Size(1058, 370);
             this.Controls.Add(this.cardPanel);
             this.Controls.Add(this.hintPanel);
-            this.Controls.Add(this.topPanel);
+            this.Controls.Add(this.settingPanel);
             this.Controls.Add(this.navigationPanel);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -191,6 +217,8 @@
             this.navigationPanel.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.controlsPanel.ResumeLayout(false);
+            this.settingPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSetting)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -198,7 +226,7 @@
         #endregion
 
         private System.Windows.Forms.Panel navigationPanel;
-        private System.Windows.Forms.Panel topPanel;
+        private System.Windows.Forms.Panel settingPanel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel controlsPanel;
         private FontAwesome.Sharp.IconButton btnPrev;
@@ -207,5 +235,6 @@
         private FontAwesome.Sharp.IconButton btnRemember;
         private FontAwesome.Sharp.IconButton btnHint;
         private System.Windows.Forms.Panel cardPanel;
+        private FontAwesome.Sharp.IconPictureBox ptbSetting;
     }
 }

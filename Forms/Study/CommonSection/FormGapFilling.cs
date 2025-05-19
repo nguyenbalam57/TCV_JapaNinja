@@ -12,6 +12,9 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
     public partial class FormGapFilling : Form
     {
+        /*
+         * Điền từ vào chỗ trống
+         */
         public FormGapFilling()
         {
             InitializeComponent();

@@ -11,11 +11,17 @@ using System.Windows.Forms;
 using static TCV_JapaNinja.Class.ConnectedData;
 using TCV_JapaNinja.Models.DatabaseCustoms;
 using System.Security.RightsManagement;
+using System.Runtime.InteropServices;
 
 namespace TCV_JapaNinja.Forms.Study.CommonSection
 {
     public partial class FormFlashCard : Form
     {
+
+        /*
+         * Thêm phần setting cho flashcard
+         */
+
         /// <summary>
         /// Lớp đại diện cho một thẻ flashcard
         /// </summary>
@@ -44,6 +50,7 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 
             SetupUI();
             //SetupFlashCards();
+            SetUpUISettingPanel();
 
             ShowFlashCard();
             InitTimerAnimation();
@@ -332,9 +339,6 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             return minSize;
         }
 
-
-
-        #endregion
         /// <summary>
         /// Khi form thay đổi kích thước, tự động điều chỉnh kích thước control
         /// </summary>
@@ -344,6 +348,9 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         {
             AdjustControlPositons();
         }
+
+        #endregion
+
 
         #region Animation
 
@@ -427,7 +434,6 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
 
         #region Data Flash Card
 
-
         /// <summary>
         /// Lấy dữ liệu từ database về và hiển thị lên form
         /// </summary>
@@ -462,6 +468,10 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
             ShowFlashCard();
         }
 
+        /// <summary>
+        /// Lấy dữ liệu từ database về và hiển thị lên form
+        /// </summary>
+        /// <param name="datas"></param>
         private void GetDataToKanji(List<CustomKanji> datas)
         {
             foreach (var item in datas)
@@ -523,6 +533,76 @@ namespace TCV_JapaNinja.Forms.Study.CommonSection
         }
 
         #endregion
+
+        #region Setting Panel
+
+        private bool isSettingPanelVisible = false; // Biến kiểm tra trạng thái hiển thị của panel setting
+
+        private void SetUpUISettingPanel()
+        {
+            // Tạm thời ẩn chế độ cài đặt
+            settingPanel.Visible = false; // Ẩn panel setting ban đầu
+
+
+            // Thiết lập giao diện cho panel setting
+            settingPanel.BorderStyle = BorderStyle.FixedSingle;
+            settingPanel.Dock = DockStyle.Top; // Đặt panel ở trên cùng
+            ptbSetting.IconChar = IconChar.CaretDown;
+            ptbSetting.Height = 15;
+            ptbSetting.Cursor = Cursors.Hand;
+        }
+
+        private void ptbSetting_Click(object sender, EventArgs e)
+        {
+            isSettingPanelVisible = !isSettingPanelVisible; // Đảo ngược trạng thái hiển thị của panel setting
+
+            if (isSettingPanelVisible)
+            {
+                // Nếu panel setting đang được mở, tăng chiều cao của nó
+                cardPanel.Visible = false;
+                navigationPanel.Visible = false;
+                settingPanel.Dock = DockStyle.Fill;
+                //ptbSetting.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                ptbSetting.IconChar = IconChar.CaretUp;
+            }
+            else
+            {
+                // Nếu panel setting đang được đóng, giảm chiều cao của nó
+                cardPanel.Visible = true;
+                navigationPanel.Visible = true;
+                settingPanel.Dock = DockStyle.Top;
+                //ptbSetting.Image.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+                ptbSetting.IconChar = IconChar.CaretDown;
+            }
+        }
+
+        /// <summary>
+        /// Khi di chuột vào icon setting, thay đổi màu sắc của icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ptbSetting_MouseEnter(object sender, EventArgs e)
+        {
+            IconPictureBox iconPictureBox = sender as IconPictureBox;
+            if(iconPictureBox != null)
+            {
+                iconPictureBox.IconColor = Color.Red;
+                iconPictureBox.ForeColor = Color.Red;
+            }
+        }
+
+        private void ptbSetting_MouseLeave(object sender, EventArgs e)
+        {
+            IconPictureBox iconPictureBox = sender as IconPictureBox;
+            if (iconPictureBox != null)
+            {
+                iconPictureBox.IconColor = Color.Black;
+                iconPictureBox.ForeColor = Color.Black;
+            }
+        }
+
+        #endregion
+
 
     }
 }
